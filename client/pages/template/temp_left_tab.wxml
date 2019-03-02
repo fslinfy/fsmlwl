@@ -1,0 +1,8 @@
+<template name="temp_left_tab">
+  <view class="left_tabbar">
+    <scroll-view scroll-y="true" style="height: 100%;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}" class="left_tabbar_list">
+      <view bindtap="changeLeftTab" data-index="{{index}}" data-name="{{item.tabName}}" data-item="{{item}}" class="left_tabbar_item {{activeTabIndex==index?'active':''}}" wx:for="{{tabs}}">{{item.tabName}}
+      </view>
+    </scroll-view>
+  </view>
+</template>

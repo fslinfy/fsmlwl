@@ -1,0 +1,24 @@
+<view class="container">
+  <view class="list_header_text">
+    <view class="item-row" style="height:30rpx;margin-top: -3rpx;">
+      <text style="text-align:left;width:40%;margin-left: 30rpx;">车牌号码</text>
+      <text style="text-align:left;width:50%;margin-left: 15rpx;">司机</text>
+      <view class="checkbox_icon checkbox_1_selected" style="width:60rpx;height:60rpx;margin-top: 8rpx;margin-right: 15rpx;" bindtap="add">+</view>
+    </view>
+  </view>
+  <view class="container-center">
+    <scroll-view scroll-y="true" style="height: 100%;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+      <view class="list-item" wx:for="{{lists}}" wx:key="" catchtap="edit" data-obj="{{item}}" style="height:50rpx;">
+        <view class="item-row" style="font-size:42rpx;">
+          <view style="width:40%;">
+            {{item.cphm}}
+          </view>
+          <view style="width:60%;">
+            {{item.thr}}
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+  <!--<icon type="success" size="50" class="post" bindtap="add"> </icon>-->
+</view>

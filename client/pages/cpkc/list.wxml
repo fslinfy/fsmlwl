@@ -1,0 +1,91 @@
+<import src="../template/temp_top_bar.wxml" />
+<import src="../template/temp_selectName.wxml" />
+
+<view class="container">
+  <view hidden="{{activeBar}}">
+    <template is="temp_top_bar" data="{{...topBarMenu}}" wx:if="{{curkhid>0}}" />
+    <view  style="height:60rpx;  font-size: 28rpx;padding:5rpx;"  hidden="{{curkhid>0}}">
+      
+        <view class="form_line" style="width:100%;" >
+          <text >客户:</text>
+          <input type="text"  style="flex:1;" disabled='true' name="khmc" bindtap="bindkhmcSelect" value="{{khmc}}"></input>
+        </view>
+      
+    </view>
+
+    <view class="list_header_text" >
+      <view class="item-row" >
+        <view class="search">
+          <view class="search_arr">
+            <icon class="searchcion" size='20' type='search'></icon>
+            <input type="text" bindinput="bindfilter" value='{{search}}' />
+          </view>
+        </view>
+        <text>数量</text>
+        <text>重量</text>
+      </view>
+    </view>
+  </view>
+  <view class="container-center" style="flex-direction:row;">
+    <!-- <template is="temp_left_tab" data="{{...leftTabList}}" />-->
+    <view class="container-center">
+      <scroll-view scroll-y="true" style="height: 100% ;flex:1;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+        <view class="list-item" wx:for="{{cpkc[activeBarIndex]}}" wx:key="" catchtap="edit" data-obj="{{item}}">
+         
+          <view class="item-row" wx:if="{{khid==0}}">
+            <view class="title">
+              <text>客户：{{item.khmc}}</text>
+            </view>
+          </view>
+          <view class="item-row">
+            <view class="list-left">
+              <view class="title">
+                <text>{{item.cpmc}}</text>
+              </view>
+              <view class="code">
+                <text >产地:</text>
+                <text class="textbox" >{{item.cdmc}}</text>
+              </view>
+              <view class="code">
+                <text >包装:</text>
+                <text class="textbox" >{{item.bzmc}}  </text>
+              </view>
+              <view class="code" hidden='{{item.cpph==""}}'>
+                <text >批号:</text>
+                <text class="textbox">{{item.cpph}}  </text>
+              </view>
+            </view>
+            <view class="kcsl_box">
+              <view class="kcsl">
+                <text>{{item.kcsl}}</text>
+              </view>
+              <view class="kcsl">
+                <text class="text-red">{{item.kdsl}}</text>
+              </view>
+            </view>
+            <view class="kcsl_box">
+              <view class="kcsl">
+                <text>{{item.kczl}}</text>
+              </view>
+              <view class="kcsl">
+                <text class="text-red">{{item.kdzl}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="list_header_text" hidden="{{sumkcsl==0}}">
+          <view class="item-row" style="font-size:34rpx;">
+            <text style='text-align:left;'>合计数量：{{sumkcsl}}</text>
+            <text>重量：{{sumkczl}}</text>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+  <!--  <icon type="success" size="50" hidden="{{curleftNav==0}}" class="post" bindtap="add"> </icon>-->
+</view>
+
+<!--get name   -->
+<view class="shade" style="padding-left:20%;" hidden="{{options.hiddenSelectWindow}}">
+  <template is="temp_selectName" data="{{...options}}" />
+</view>

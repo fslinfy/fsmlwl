@@ -1,0 +1,45 @@
+<import src="../template/temp_display_xsdmx.wxml" />
+<view class="container">
+  <view class="container-right">
+    <scroll-view scroll-y="true" style="height: 100%;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+      <!-- <canvas style="width: 150px; height: 150px;" canvas-id="myQrcode"></canvas> -->
+      <view class="form_panel_col" style="height:180rpx;">
+        <view class="form_line_header">
+          <text>提货单号:</text>
+          <text class="textbox" style="margin-right:15rpx;">{{xsd.xsdh}}</text>
+        </view>
+        <view class="form_line_header">
+          <text>提货仓库:</text>
+          <text class="textbox" style="margin-right:15rpx;">{{xsd.ckmc}} </text>
+        </view>
+        <view class="form_line_header">
+          <text>开单日期:</text>
+          <text class="textbox">{{xsd.xsrq}}</text>
+          <text>有效期:</text>
+          <text class="textbox" style="margin-right:15rpx;">{{xsd.endrq}}  </text>
+        </view>
+      </view>
+      <view class="list_header" style="margin-top:5rpx;height:5rpx; background-color: #ccc; ">
+      </view>
+      <view class="list-item" wx:for="{{xsd.xsdmx}}" style="height:auto;" data-obj="{{item}}">
+        <template is="temp_display_xsdmx" data="{{...item}}" />
+      </view>
+      <view class="list_header" style="margin-top:5rpx;height:5rpx; background-color: #ccc; ">
+      </view>
+      <view class="form_panel_col" style="margin-left:0rpx;height:auto;">
+        <view class="form_line_header " style="height:60rpx;margin: 0rpx 0rpx 0rpx 0rpx;">
+          <text>提货车牌</text>
+          <text class="textbox">{{xsd.cphm}}</text>
+
+          <text>提货司机</text>
+          <text class="textbox" style="margin-right:10rpx;">{{xsd.sfr}} </text>
+
+        </view>
+        <view class="form_line_header " style="flex:1;">
+          <text style="width:40rpx;">备  注</text>
+          <textarea value="{{xsd.cnote}}" placeholder="" auto-focus style="height:180rpx;margin: 15rpx 15rpx 5rpx 5rpx;  background-color: white;  " disabled="true" maxlength='254' name="cnote" />
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</view>

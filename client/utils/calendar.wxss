@@ -1,0 +1,97 @@
+
+.window_view {
+   width: 90%;
+   margin: 10rpx 0rpx 0rpx 0rpx;
+   padding: 10rpx 5rpx 10rpx 5rpx;
+   background-color: navy;
+   display: flex;
+   flex-direction: column;
+    border-width: 2rpx 2rpx 2rpx 2rpx;
+  -moz-box-shadow: 5rpx 5rpx 3rpx #888888; 
+   box-shadow: 5rpx 5rpx 3rpx #888888;
+}
+.selected_date {
+   width: 100%;
+   height:80rpx;
+  
+   background-color: #eee;
+   display: flex;
+   flex-direction: row;
+}
+.selected_date>view {
+  flex:1;
+  padding: 15rpx 10rpx 10rpx 10rpx;
+  font-size: large;
+  
+}
+ .calendar_panel {
+  width: 100%;
+  flex:1;
+  background-color: #bbb;
+}
+
+.calendar_box {
+  width: 100%;
+  background: #fff;
+  
+  border-bottom: 1rpx solid #ececec;
+  display: flex;
+}
+.weekday_label {
+  width: 14.28%;
+  float: left;
+  font-size: x-large;
+ 
+  text-align: center;
+  padding: 10rpx 0;
+
+}
+
+.weekday_label>text {
+  width:70rpx;
+  height: 70rpx;
+  line-height: 70rpx;
+  display: inline-block;
+}
+
+.select_icon {
+  width: 60rpx;
+  
+  height: 60rpx;
+}
+
+.active_date {
+  background: #148447;
+  color: #fff;
+  border-radius: 50%;
+}
+
+.show_box {
+  padding: 20rpx;
+  font-size: large;
+}
+
+
+.window-header {
+  height: 90rpx;
+  display: flex;
+  flex-direction:row;
+  
+  background-color: navy;
+}
+.window-icon {
+  height:100%;
+  width:70rpx;
+  align-items: right; 
+  margin:10rpx 2rpx 10rpx  0rpx;
+  
+}
+.window-title {
+  height: 100%;
+  flex:1;
+  margin:10rpx 0rpx 10rpx  0rpx;
+  color:  #fff  ;
+  font-weight: 600;
+  text-align: center;
+}
+

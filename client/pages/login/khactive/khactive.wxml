@@ -1,0 +1,32 @@
+<!--index.wxml-->
+<view class="container">
+  <view style="padding:30rpx; align-items:right;  width:100%; ">
+    <view class="form_container">
+      <form bindsubmit="sendsms" style="margin: 5rpx 5rpx 5rpx 5rpx; ">
+        <view class="form_line">
+          <text>客户ID</text>
+          <input type="text" maxlength="20" name="khid" disabled='{{sendstatus>0}}' value="{{khid}}"></input>
+        </view>
+        <view class="form_line">
+          <text>手机号码</text>
+          <input type="text" maxlength="20" name="smsphone" value="{{smsphone}}"  disabled='{{sendstatus>0}}' ></input>
+        </view>
+        <view class="form_line">
+          <button formType="submit" style="margin: -8rpx 5rpx 5rpx 130rpx;  "  disabled='{{sendstatus>0}}' >{{button_text}}</button>
+        </view>
+      </form>
+      <view hidden='{{!sendstatus}}'>
+        <form bindsubmit="syslogin" style="margin: 5rpx 5rpx 5rpx 5rpx; ">
+          <view class="form_line">
+            <text>验证码</text>
+            <input type="text" maxlength="6"  minlength="6" name="vcode" value=""></input>
+          </view>
+          <view class="form_line">
+            <button formType="submit">确    认</button>
+          </view>
+
+        </form>
+      </view>
+    </view>
+  </view>
+</view>

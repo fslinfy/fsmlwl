@@ -1,0 +1,10 @@
+@import "../../style/cpxsdedit.wxss";
+
+.textbox {
+  margin-right:15rpx;
+  height:50rpx;
+}
+
+.form_line_header {
+  margin:0rpx 15rpx 0rpx 5rpx;
+}

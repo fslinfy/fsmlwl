@@ -1,0 +1,43 @@
+<import src="../../template/temp_loc_ckdmx.wxml" />
+<import src="../../template/temp_calendar.wxml" />
+<import src="../../template/temp_selectName.wxml" />
+<view class="container">
+  <view class="container-right">
+    <form bindsubmit="evaSubmit" report-submit='true'>
+      <view class="list-item" wx:for="{{lists}}" style="height:auto;" data-obj="{{item}}">
+        <template is="temp_loc_ckdmx" data="{{...item}}" />
+      </view>
+      <view class="form_panel_col" style="margin-left:0rpx;height:200rpx;">
+        <view class="form_line_header " style="flex:1;">
+          <text style="width:40rpx;">备  注</text>
+          <textarea value="{{cnote}}" placeholder="" hidden="{{!hiddenSelectWindow || !calendarHidden}}" auto-focus style="height:180rpx;margin: 5rpx 5rpx 5rpx 5rpx;  background-color: white;  " bindblur="textBlur" maxlength='254' name="cnote" />
+        </view>
+      </view>
+      <view class="form_line_header" style="padding:10rpx;">
+        <button formType="submit" disabled='{{ckdmx.length==0}}' type="primary" style="width:45%;	">审核通过</button>
+        <button bindtap="bindcancel" type="primary" style="width:45%;">返回</button>
+      </view>
+    </form>
+    <view class="form_line_header" style="margin-left:00rpx;align: right;">
+      <view class="delete_line">
+        <view class="form_line_header" bindtap="delete" style="margin-left:30rpx;width:60%;" wx:if="{{obj.delbz==0}}">
+          <image src="../../../images/icon_delete.png" style="height:70rpx;width:70rpx;" />
+          <text>作废此提单</text>
+        </view>
+        <view class="form_line_header" wx:if="{{obj.delbz>0}}">
+          <text style="color:red;">此提单已经作废</text>
+        </view>
+      </view>
+    </view>
+
+    <!--    </scroll-view>-->
+  </view>
+  <!-- get date  -->
+  <view class="shade" style="padding-left:20%;" hidden="{{datedata.calendarHidden}}">
+    <template is="temp_calendar" data="{{...datedata}}" />
+  </view>
+  <!-- get name   -->
+  <view class="shade" style="padding-left:20%;" hidden="{{options.hiddenSelectWindow}}">
+    <template is="temp_selectName" data="{{...options}}" />
+  </view>
+</view>

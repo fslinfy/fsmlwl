@@ -1,0 +1,54 @@
+<template name="temp_loc_xsdmx">
+  <view class="item-row">
+    <view class="item-col" style="flex:17;">
+      提单:
+      <text>{{xsdh}}</text>
+    </view>
+    <view class="item-col">
+      开单:
+      <text>{{xsrq}}</text>
+    </view>
+  </view>
+
+  <view class="item-row">
+    <view class="item-col" style="flex:17;">
+      仓库:
+      <text>{{ckmc}}</text>
+    </view>
+    <view class="item-col">
+      有效:
+      <text>{{endrq}}</text>
+    </view>
+  </view>
+  <view class="item-row">
+    <view class="item-col">
+      车牌:
+      <text>{{cphm}}</text>
+    </view>
+    <view class="item-col">
+      司机:
+      <text>{{sfr}}</text>
+
+    </view>
+  </view>
+  <view class="item-row">
+    <view class="item-col">
+      开单:
+      <text>{{czy}}</text>
+
+    </view>
+    <view class="item-col">
+      审核:
+      <text>{{shr}}</text>
+
+    </view>
+  </view>
+  <view class="item-row">
+    <view class="item-col">
+      备注:
+      <text>{{cnote}}</text>
+
+    </view>
+  </view>
+
+</template>

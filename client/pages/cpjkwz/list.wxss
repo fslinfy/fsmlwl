@@ -1,0 +1,7 @@
+@import "../../utils/calendar.wxss";
+@import "../../style/cpxsdedit.wxss";
+.item-row {
+  background-color: white ;
+
+}
+

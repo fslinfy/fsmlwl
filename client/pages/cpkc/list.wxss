@@ -1,0 +1,11 @@
+
+@import "../../utils/calendar.wxss";
+@import "../../style/cpkclist.wxss";
+@import "../../style/cpxsdedit.wxss";
+
+
+.list-item {
+  background-color: white ;
+
+}
+

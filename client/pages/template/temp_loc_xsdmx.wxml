@@ -1,0 +1,83 @@
+<!-- <import src="template/temp_display_xsdmx.wxml" />-->
+<template name="temp_loc_xsdmx">
+  <view class="item-row">
+    <view class="item-col" style="flex:13; background:#FFC800;  ">
+      提单:
+      <text class="textbox">{{xsdh}}</text>
+      <view hidden="{{delbz==0}}">
+        <text style="color:red;">已作废</text>
+      </view>
+    </view>
+    <view class="item-col" style="background:#FFC800;  ">
+      开单:
+      <text class="textbox">{{xsrq}}</text>
+    </view>
+  </view>
+
+  <view class="item-row">
+    <view class="item-col" style="flex:13; background:#FFC800;  ">
+      仓库:
+      <text class="textbox">{{ckmc}}</text>
+    </view>
+    <view class="item-col" style=" background:#FFC800;  ">
+      有效:
+      <text class="textbox">{{endrq}}</text>
+    </view>
+  </view>
+  <!--<view class="list-item" wx:for="{{xsdmx}}" style="height:auto;" >
+       
+          <template is="temp_display_xsdmx" data="{{xsdmx}}" />
+   </view>      -->
+  <view class="list-item-mx" wx:for="{{xsdmx}}" style="height:auto;">
+    <view class="form_line">
+      <text >商品:</text>
+      <text class="textbox">{{item.cpmc}}</text>
+    </view>
+    <view class="form_line">
+      <text >产地:</text>
+      <text class="textbox">{{item.cdmc}}</text>
+      <text>批号:</text>
+      <text class="textbox">{{item.cpph}}</text>
+
+    </view>
+    <view class="form_line">
+      <text >规格:</text>
+      <text class="textbox">{{item.cpgg}}</text>
+    </view>
+    <view class="form_line">
+      <text>数量:</text>
+      <text class="textbox" style="text-align:center;">{{item.xssl}}</text>
+      <text style=" margin-right:20rpx;">{{item.jldw}}</text>
+      <text style=" margin-left:20rpx;text-align:right; "> 重量(吨):</text>
+      <text class="textbox" style="text-align:center;">{{item.xszl}}</text>
+    </view>
+  </view>
+  <view class="item-row">
+    <view class="item-col">
+      车牌:
+      <text class="textbox">{{cphm}}</text>
+    </view>
+    <view class="item-col">
+      司机:
+      <text class="textbox">{{sfr}}</text>
+    </view>
+  </view>
+  <view class="item-row">
+    <view class="item-col">
+      开单:
+      <text class="textbox">{{czy}}</text>
+    </view>
+    <view class="item-col">
+      审核:
+      <text class="textbox">{{shr}}</text>
+    </view>
+  </view>
+  <view class="item-row">
+    <view class="item-col">
+      备注:
+      <text class="textbox" style="height:auto;margin: 5rpx 5rpx 5rpx 10rpx;  background-color: #eee; font-size:36rpx; ">{{cnote}}</text>
+    </view>
+  </view>
+  <view style=" background:lightcoral  ;height:18rpx;">
+  </view>
+</template>

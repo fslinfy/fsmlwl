@@ -1,0 +1,71 @@
+{
+  "pages": [
+    "pages/login/index",
+    "pages/index/index",
+    
+    "pages/menu/menu",
+    "pages/xsdview/edit",
+    "pages/menu/menu1",
+     
+    "pages/khusers/edit/edit",
+    "pages/login/useractive/useractive",
+    "pages/login/khactive/khactive",
+    "pages/cpkc/list",
+    "pages/xsdloc/list",
+    "pages/jkdloc/list",
+    "pages/xsddelloc/list",
+    "pages/khusers/list",
+    "pages/xsdsh/list",
+    "pages/xsdmfh/list",
+    "pages/xskd/list",
+    "pages/xskd/edit/edit",
+    "pages/xsdsh/edit/edit",
+    "pages/cphm/list",
+    "pages/cphm/edit/edit",
+    
+    "pages/cpjkdloc/list",
+    "pages/cpgfdloc/list",
+    
+    "pages/cpjkdsh/list",
+    "pages/cpjkdsh/edit/edit", 
+    "pages/cpjkdcwsh/list",
+
+    "pages/cpckdywsh/list",
+    "pages/cpckdywsh/edit/edit",
+    "pages/cpckdcksh/list",
+    
+    "pages/cpckdcwsh/list",
+    "pages/cpjkwz/list",
+    "pages/cpjkwz/edit/edit",
+    
+    "pages/cpjcttloc/list",
+    "pages/cpjcttloc/edit/edit",
+    
+
+    "pages/cpckdloc/list",
+    "pages/logs/list"
+  ],
+  "window": {
+    "backgroundColor": "#F6F6F6",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#F6F6F6",
+    "navigationBarTitleText": "明联物流",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/menu/menu",
+        "text": "首页",
+        "iconPath": "images/home.png",
+        "selectedIconPath": "images/node_on.png"
+      },
+      {
+        "pagePath": "pages/menu/menu1",
+        "text": "系统",
+        "iconPath": "images/member.png",
+        "selectedIconPath": "images/member_on.png"
+      }
+    ]
+  }
+}

@@ -1,0 +1,54 @@
+.left_tabbar {
+  width: 25%;
+  height: 100%;
+}
+
+.left_tabbar_item {
+  color: #777;
+  font-size: 26rpx;
+  width: 100%;
+  padding: 20rpx 0;
+  text-align: center;
+  border-bottom: 1rpx solid #fff;
+}
+
+.left_tabbar_list {
+  background: #eee;
+}
+
+.left_tabbar .active {
+  background: #fff;
+  color: #000;
+  transition: all 0.5s;
+  animation: show 0.5s;
+}
+
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
+}
+
+@-webkit-keyframes show {
+  0% {
+    opacity: 0;
+    transform: rotateY(180deg);
+  }
+
+  100% {
+    opacity: 1;
+    transform: rotateY(360deg);
+  }
+}
+
+@keyframes show {
+  0% {
+    opacity: 0;
+    transform: rotateY(180deg);
+  }
+
+  100% {
+    opacity: 1;
+    transform: rotateY(360deg);
+  }
+}

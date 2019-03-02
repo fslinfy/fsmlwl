@@ -1,0 +1,11 @@
+<template name="temp_top_bar">
+  <view class="xscroll_bar">
+    <scroll-view scroll-x="true" class="xscroll_bar">
+      <view class="menu_item {{index==activeBarIndex?'active':''}}" style="width:{{itemWidth}};" wx:for="{{menus}}" bindtap="changeTopBar" data-index="{{index}}" data-item="{{item}}" data-menu="{{item.menu}}">
+        <view class="{{!(index==0 || index-1==activeBarIndex || index==activeBarIndex)?'menu_item_border':''}}">
+          {{item.menu}}
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</template>

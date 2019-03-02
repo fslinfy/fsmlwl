@@ -1,0 +1,92 @@
+<import src="../../template/temp_calendar.wxml" />
+<import src="../../template/temp_commodity.wxml" />
+<import src="../../template/temp_selectName.wxml" />
+<view class="container">
+  <view class="container-right">
+    <!--  <scroll-view scroll-y="true" style="height: 100%;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">-->
+    <view style="height: 100%;">
+      <view class="form_panel" style="height:130rpx;">
+        <view class="form_line_header ">
+          <text>提货仓库:</text>
+          <input type="text" disabled='true' name="C_name" style="margin-right:5rpx;" value="{{ckmc}}"></input>
+        </view>
+        <view class="form_line_header ">
+          <text>开单日期:</text>
+          <input type="text" name="date" disabled="true" value="{{xsrq}}" style="margin-right:3rpx;" bindtap="bindDateChange"></input>
+          <text>有效期:</text>
+          <input type="text" name="date1" disabled="true" value="{{endrq}}" style="margin-right:5rpx;" bindtap="bindDateChange1"></input>
+        </view>
+      </view>
+      <view class="list-item" wx:for="{{xsdmx}}" wx:key="">
+        <view class="form_line">
+          <text>商品:</text>
+          <input type="text" value="{{item.cpmc}}" disabled="true"></input>
+          <view class="checkbox_icon checkbox_1_selected" bindtap="binddeletecp" style="width:60rpx;height:60rpx;margin-right:20rpx;" data-obj="{{item}}">-</view>
+        </view>
+        <view class="form_line">
+          <view class="form_item" style="   width:50%; ">
+            <text>产地:</text>
+            <input type="text" value="{{item.cdmc}}" disabled="true" maxlength="6"></input>
+          </view>
+          <text>批号:</text>
+          <input type="text" value="{{item.cpph}}" data-index="{{index}}" disabled="true" bindinput="bindInputPh"></input>
+        </view>
+        <view class="form_line">
+          <text>规格:</text>
+          <input type="text" value="{{item.bzmc}}" disabled="true"></input>
+        </view>
+        <view class="form_line" style="color:blue;font-size:36rpx; height:60rpx;margin-bottom:0rpx;">
+          <text style="margin-top:5rpx; ">可开:</text>
+          <text class="textbox" style="text-align:center;">{{item.kcsl}} </text>
+          <text style="margin-top:5rpx;">{{item.jldw}}</text>
+          <text style="margin-top:5rpx;margin-left:25rpx;border:2;text-align:right;">重量(吨):</text>
+          <text class="textbox" style="text-align:center;">{{item.kczl}}</text>
+        </view>
+        <view class="form_line" style="height:70rpx;margin-bottom:3rpx;">
+          <text style="margin-top:15rpx; ">数量:</text>
+          <input type="digit" value="{{item.sl}}" style="font-size:48rpx;text-align:center;height:70rpx;margin-right:5rpx;margin-left:3rpx;" data-index="{{index}}" bindinput="bindInputQty"></input>
+          <text style="margin-top:15rpx;font-size:36rpx;">{{item.jldw}}</text>
+          <text style="margin-top:15rpx;margin-left:25rpx;border:2;text-align:right;">重量(吨):</text>
+          <input type="digit" value="{{item.zl}}" style="font-size:48rpx;text-align:center;height:70rpx;margin-right:5rpx;margin-left:3rpx;" bindblur="bindInputZl" data-index="{{index}}"></input>
+        </view>
+      </view>
+      <form bindsubmit="evaSubmit" report-submit='true'>
+        <view class="form_panel_col" style="margin-left:0rpx;height:420rpx;">
+          <view class="list_header_text" hidden="{{sumkcsl==0}}">
+            <view class="item-row" style="height:40rpx;margin-top: -3rpx;font-size:34rpx; ">
+              <text style='text-align:left;'>合计数量：{{sumsl}}</text>
+              <text>合计重量：{{sumzl}}</text>
+            </view>
+          </view>
+          <view class="form_line_header " style="height:70rpx;">
+            <text>提货车牌</text>
+            <input type="text" name="cphm" value="{{cphm}}"></input>
+            <view class="checkbox_icon checkbox_0_selected" bindtap="bindcphmSelect" style="width:60rpx;height:60rpx;margin-right:20rpx;" data-commodityindex="{{index}}">...</view>
+          </view>
+          <view class="form_line_header " style="height:70rpx;">
+            <text>提货司机</text>
+            <input type="text" name="sfr" value="{{sfr}}"></input>
+            <view class="checkbox_icon checkbox_0_selected" bindtap="bindsfrSelect" style="width:60rpx;height:60rpx;margin-right:20rpx;" data-commodityindex="{{index}}">...</view>
+          </view>
+          <view class="form_line_header " style="flex:1;">
+            <text style="width:40rpx;">备  注</text>
+            <textarea value="{{cnote}}" placeholder="" auto-focus hidden="{{!hiddenSelectWindow || !calendarHidden}}" style="height:180rpx;margin: 5rpx 5rpx 5rpx 5rpx;  background-color: white;  " bindblur="textBlur" maxlength='254' name="cnote" />
+          </view>
+        </view>
+        <view class="form_line_header" style="padding:10rpx;align: right;">
+          <button formType="submit" disabled='{{xsdmx.length==0}}' class="weui-btn mini-btn" type="primary" style="width:50%;height:80rpx;	text-align: center;">提交</button>
+          <button bindtap="bindcancel" class="weui-btn mini-btn" type="primary" style="width:50%;height:80rpx;	text-align: center;">放弃</button>
+        </view>
+      </form>
+      <!--  </scroll-view>-->
+    </view>
+  </view>
+</view>
+<!-- get date  -->
+<view class="shade" style="padding-left:20%;" hidden="{{datedata.calendarHidden}}">
+  <template is="temp_calendar" data="{{...datedata}}" />
+</view>
+<!-- get name   -->
+<view class="shade" style="padding-left:20%;" hidden="{{options.hiddenSelectWindow}}">
+  <template is="temp_selectName" data="{{...options}}" />
+</view>

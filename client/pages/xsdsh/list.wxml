@@ -1,0 +1,13 @@
+<import src="../template/temp_loc_xsdmx.wxml" />
+<view class="container">
+  <view class="list_header">
+  </view>
+  <view class="container-center">
+    <scroll-view scroll-y="true" style="height: 100%;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+      <view class="list-item" wx:for="{{lists}}" wx:key="" catchtap="edit" data-obj="{{item}}">
+        <template is="temp_loc_xsdmx" data="{{...item}}" />
+      </view>
+    </scroll-view>
+  </view>
+
+</view>

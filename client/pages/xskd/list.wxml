@@ -1,0 +1,80 @@
+<import src="../template/temp_top_bar.wxml" />
+
+<view class="container">
+  <view hidden="{{activeBar}}">
+    <template is="temp_top_bar" data="{{...topBarMenu}}" />
+    <view class="list_header_text" style="padding:3rpx;">
+      <view class="item-row" >
+        <!--  <text class="text-green">选中:{{cartTotal}}</text>-->
+        <view class="search">
+          <view class="search_arr">
+            <icon class="searchcion" size='20' type='search'></icon>
+            <input type="text" bindinput="bindfilter" value='{{search}}' />
+
+          </view>
+        </view>
+        <text>数量</text>
+        <text>重量</text>
+      </view>
+    </view>
+  </view>
+  <view class="container-center" style="flex-direction:row;">
+    <view class="container-center">
+      <scroll-view scroll-y="true" style="height: 100% ;flex:1;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+        <view class="list-item" wx:for="{{cpkc[activeBarIndex]}}" wx:key="" catchtap="selectcpmc" data-obj="{{item}}">
+
+
+          <view class="item-row">
+
+            <view class="list-left">
+              <view class="title">
+                <text>{{item.cpmc}}</text>
+              </view>
+
+              <view class="code">
+                <text >产地:</text>
+                <text class="textbox">{{item.cdmc}}</text>
+              </view>
+              <view class="code">
+                <text >包装:</text>
+                <text class="textbox">{{item.bzmc}}</text>
+              </view>
+              <view class="code" hidden='{{item.cpph==""}}'>
+                <text >批号:</text>
+                <text class="textbox">{{item.cpph}}  </text>
+              </view>
+            </view>
+            <view class="kcsl_box">
+              <view class="kcsl">
+                <text>{{item.kcsl}}</text>
+              </view>
+              <view class="kcsl">
+                <text class="text-red">{{item.kdsl}}</text>
+              </view>
+
+            </view>
+            <view class="kcsl_box">
+              <view class="kcsl">
+                <text>{{item.kczl}}</text>
+              </view>
+              <view class="kcsl">
+                <view class="add-btn">
+                  <icon type="{{item.status==1 ? 'success' : 'circle'}}" color="orange" size="26" hidden='{{item.sl==0}}'></icon>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <view class="list_header_text" hidden="{{sumkcsl==0}}">
+          <view class="item-row" style="font-size:30rpx; ">
+            <text style='text-align:left;'>合计数量：{{sumkcsl}}</text>
+            <text>重量：{{sumkczl}}</text>
+            <text style='width:15%;' class="text-green">选中:{{cartTotal}}</text>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+  <icon type="success" size="50" hidden="{{cartTotal==0}}" class="post" bindtap="xskd"> </icon>
+</view>

@@ -1,0 +1,109 @@
+<import src="../../template/temp_display_xsdmx.wxml" />
+<import src="../../template/temp_calendar.wxml" />
+<import src="../../template/temp_selectName.wxml" />
+<view class="container">
+  <view class="container-center">
+    <scroll-view scroll-y="true" class="xscroll-y" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+      <view class="form_container">
+        <view class="form_header">
+        </view>
+        <form bindsubmit="edit_save" report-submit='true'>
+          <input type="digit" name="active" value="{{active}}" hidden="true"></input>
+          <view class="form_line">
+            <view class="form_panel_row">
+              <text style=" width:130rpx; ">用户代码</text>
+              <input type="text" name="usercode" maxlength="20" placeholder="" value="{{obj.usercode}}"></input>
+            </view>
+            <view class="form_panel_row">
+              <text style=" width:100rpx; ">用户ID:</text>
+              <text style="color:#000000;">{{id}}</text>
+            </view>
+          </view>
+          <view class="form_line">
+            <text>用户名称</text>
+            <input type="text" name="username" maxlength="20" placeholder="" value="{{obj.username}}"></input>
+          </view>
+          <view class="form_line">
+            <text>手机号码</text>
+            <input type="text" name="smsphone" maxlength="20" placeholder="" value="{{obj.smsphone}}"></input>
+          </view>
+
+          <view class="form_line">
+            <text>微信号:</text>
+            <text style="color:#000000;">{{obj.wxnumber}}</text>
+            <!--<input type="text" name="wxnumber" maxlength="20" placeholder="" value="{{obj.wxnumber}}"></input>-->
+          </view>
+          <view class="form_line">
+            <text>微信名称:</text>
+            <text style="color:#000000;">{{obj.wxname}}</text>
+            <!--
+            <input type="text" name="wxname" maxlength="20" placeholder="" value="{{obj.wxname}}"></input>-->
+          </view>
+          <view class="form_line">
+            <view class="form_panel_row">
+              <text>修改权限</text>
+              <checkbox-group bindchange="checkboxChange_edit">
+                <checkbox value="1" checked="{{edit>0}}" />
+              </checkbox-group>
+            </view>
+            <view class="form_panel_row">
+              <text>删除权限</text>
+              <checkbox-group bindchange="checkboxChange_del">
+                <checkbox value="1" checked="{{del>0}}" />
+              </checkbox-group>
+            </view>
+          </view>
+
+          <view class="form_line">
+            <view class="form_panel_row">
+              <text>审核权限</text>
+              <checkbox-group bindchange="checkboxChange_sh">
+                <checkbox value="1" checked="{{sh>0}}" />
+              </checkbox-group>
+            </view>
+
+            <view class="form_panel_row">
+              <text>系统管理</text>
+              <checkbox-group bindchange="checkboxChange_sys">
+                <checkbox value="1" checked="{{lastdel>0}}" />
+              </checkbox-group>
+            </view>
+          </view>
+          <view class="form_line" wx:if="{{id>0}}">
+            <!--
+              <view class="form_panel_row">
+                <text>用户激活</text>
+                <checkbox-group>
+                  <checkbox value="1" checked="{{snsactive>0}}   " />
+                </checkbox-group>
+              </view>
+              -->
+            <view class="form_panel_row">
+              <text>用户有效 </text>
+              <checkbox-group bindchange="checkboxChange">
+                <checkbox value="1" checked="{{active>0}}" />
+              </checkbox-group>
+            </view>
+          </view>
+          <view class="form_line">
+            <button formType="submit">保 存</button>
+          </view>
+        </form>
+        <view class="form_line" style="height:100rpx;">
+          <view class="form_line" bindtap="changesmsactive" wx:if="{{smsactive}}">
+            <text style=" width:100%;text-align：right;margin-top:15rpx; ">取消用户激活状态</text>
+          </view>
+          <view class="form_line" bindtap="unlocked" wx:if="{{obj.locked==1}}">
+            <text style=" width:100%;text-align：right;margin-top:15rpx; ">解锁处理</text>
+          </view>
+        </view>
+        <view class="form_line" style="height:100rpx;">
+          <view class="delete_line" bindtap="delete" wx:if="{{id>0}}">
+            <image src="../../../images/icon_delete.png" />
+            <text style=" width:140rpx;margin-top:-0rpx; ">删除用户</text>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</view>

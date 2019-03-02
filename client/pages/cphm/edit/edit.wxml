@@ -1,0 +1,42 @@
+<view class="container">
+  <view class="container-center">
+    <scroll-view scroll-y="true" class="xscroll-y" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+      <view class="form_container">
+        <view class="form_header">
+        </view>
+        <form bindsubmit="edit_save" report-submit='true'>
+          <input type="digit" name="active" value="{{active}}" hidden="true"></input>
+          <view class="form_line">
+            <text>车牌号码</text>
+            <input type="text" maxlength="20" name="cphm" value="{{obj.cphm}}"></input>
+          </view>
+          <view class="form_line">
+            <text>司    机</text>
+            <input type="text" name="thr" maxlength="20" placeholder="" value="{{obj.thr}}"></input>
+          </view>
+          <view class="form_line">
+            <text>微信号</text>
+            <input type="text" name="wxnumber" maxlength="20" placeholder="" value="{{obj.wxnumber}}"></input>
+          </view>
+          <view class="form_line">
+            <text>微信名称</text>
+            <input type="text" name="wxname" maxlength="20" placeholder="" value="{{obj.wxname}}"></input>
+          </view>
+          <view class="form_line" wx:if="{{id>0}}">
+            <text>活跃</text>
+            <checkbox-group bindchange="checkboxChange">
+              <checkbox value="1" checked="{{active>0}}" />
+            </checkbox-group>
+          </view>
+          <view class="form_line">
+            <button formType="submit">保 存</button>
+          </view>
+        </form>
+        <view class="delete_line" bindtap="delete" wx:if="{{id>0}}">
+          <image src="../../../images/icon_delete.png" />
+          <text>删除</text>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</view>

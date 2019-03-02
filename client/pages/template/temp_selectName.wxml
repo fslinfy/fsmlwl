@@ -1,0 +1,28 @@
+<template name="temp_selectName">
+  <view class="window_view" style="height:{{widowHeight}};">
+    <view class="window-header">
+      <view class="window-icon"></view>
+      <view class="window-title">{{selectTitle}}
+      </view>
+      <view class="window-icon">
+        <icon type="clear" size="24" bindtap="selectCancelBtn"> </icon>
+      </view>
+    </view>
+    <view class="container-right">
+      <scroll-view scroll-y="true" style="height: 100%;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+        <view class="list-item-select{{item.Name=='确认'?'_ok':''}}" wx:for="{{nameList}}" wx:key="" bindtap="selectBtn" data-index="{{index}}" data-id="{{item.Id}}" data-name="{{item.Name}}">
+          <view class="checkbox_group" wx:if="{{multipleChoice}}">
+            <view class="checkbox_icon checkbox_1_selected" wx:if="{{item.selectStatus!=1  && item.Name!='确认' }}"> </view>
+            <!-- <view class="checkbox_icon checkbox_1_selected" wx:if="{{item.selectStatus!=1}}"> </view>-->
+            <view class="checkbox_icon checkbox_1_selected" wx:if="{{item.selectStatus==1}}">√</view>
+          </view>
+
+          <view class="{{item.Name=='确认'?'selected_ok':''}}">
+            <text style="font-size:52rpx;"> {{item.Name}}</text>
+          </view>
+
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+</template>

@@ -1,0 +1,58 @@
+<!--index.wxml-->
+<view class="container">
+  <!--<view wx:if="{{!userlogin}}">-->
+  <view class="userinfo">
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 关联微信 获取微信头像 </button>
+    <block wx:else>
+      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </block>
+  </view>
+  <view style="height:100rpx;">
+  </view>
+  <view style="padding:30rpx; align-items:right;  width:100%;" wx:if="{{hasUserInfo || !canIUse}}">
+    <view class="form_container">
+      <form bindsubmit="syslogin" report-submit='true' style="margin: 5rpx 15rpx 5rpx 15rpx;background-color:#FCD33D; ">
+        <input type="digit" name="khid" value="{{khid}}" hidden="true"></input>
+        <view style='text-align:center;margin:30rpx 30rpx 30rpx 30rpx;' wx:if="{{!cklogin}}">
+          客户登录
+        </view>
+        <view style='text-align:center;margin:30rpx 30rpx 30rpx 30rpx;' wx:if="{{cklogin}}">
+          员工登录
+        </view>
+        <view class="form_line" hidden="{{cklogin}}">
+          <text>客户ID</text>
+          <input type="text" maxlength="20" name="khid" value="{{khid}}"></input>
+        </view>
+        <view class="form_line" hidden="{{wxloginmodel}}">
+          <text>用户ID</text>
+          <input type="text" maxlength="20" name="username" value="{{userid}}"></input>
+        </view>
+        <view class="form_line" hidden="{{!wxloginmodel}}">
+          <text>微信名称</text>
+          <input type="text" maxlength="20" disabled='true' name="wxname" value="{{wxname}}"></input>
+        </view>
+
+        <view class="form_line">
+          <text>登录密码</text>
+          <input type="password" maxlength="20" name="password" value="8888"></input>
+        </view>
+        <view class="form_line">
+          <button formType="submit">登录</button>
+        </view>
+      </form>
+      <view class="form_line" style='margin:30rpx 30rpx 5rpx 10rpx; width:95%;   '>
+        <view bindtap="useractive" style='width:50%; margin-top:15rpx; '>
+          <text>用户激活</text>
+        </view>
+        <view bindtap="khactive" style='text-align:right;margin-top:15rpx;margin-right:15rpx;width:50%;'>
+          VIP设置
+        </view>
+      </view>
+      <!--<view class="form_line" bindtap="wxloginactive" style='margin:30rpx 30rpx 5rpx 10rpx; width:95%;   '>
+        <text hidden="{{cklogin}}" style="text-align:right;width:100%; ">转员工登录</text>
+        <text hidden="{{!cklogin}}" style="text-align:right;width:100%; ">转客户登录</text>
+      </view>-->
+    </view>
+  </view>
+</view>

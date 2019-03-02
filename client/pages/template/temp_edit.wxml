@@ -1,0 +1,29 @@
+<import src="edit_contents.wxml" />
+<template name="temp_edit">
+
+  <view class="container">
+
+    <view class="container-center">
+
+      <scroll-view scroll-y="true" class="xscroll-y" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+
+        <view class="form_container">
+          <view class="form_header">
+          </view>
+          <form bindsubmit="edit_save">
+            <template is="edit_contents" data="{{edit}}" />
+
+            <view class="form_line">
+              <button formType="submit">保 存</button>
+            </view>
+          </form>
+
+          <view class="delete_line" bindtap="delete" wx:if="{{Id>0}}">
+            <image src="../../../../../images/icon_delete.png" />
+            <text>删除</text>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+</template>

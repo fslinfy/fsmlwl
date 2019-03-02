@@ -1,0 +1,57 @@
+@import "../../utils/calendar.wxss";
+@import "../../style/cpxsdedit.wxss";
+
+.list-item-select {
+  margin-top: 0rpx;
+  padding: 2rpx 0rpx 0rpx 2rpx;
+  height: 60rpx;
+  width: 99%;
+  border: silver;
+  display: flex;
+  background-color: white;
+  flex-direction: row;
+  border-bottom: 2px solid #ececec;
+}
+
+.list-item-select_ok {
+  margin-top: 0rpx;
+  padding: 2rpx 0rpx 0rpx 2rpx;
+  height: 60rpx;
+  width: 99%;
+  border: silver;
+  display: flex;
+  background-color: teal;
+  color: white;
+  flex-direction: row;
+  border-bottom: 2px solid #ececec;
+  font-size: 36rpx;
+  text-align: center;
+}
+
+.selected_ok {
+  font-size: 22rpx;
+  text-align: center;
+  width: 70%;
+}
+.checkbox_1_selected {
+  background: teal;
+  width: 60rpx;
+  color: #fff;
+}
+
+.checkbox_icon {
+  width: 40rpx;
+  height: 40rpx;
+  line-height: 35rpx;
+  font-size: 22rpx;
+  font-family: '微软雅黑', Helvetica, 'Hiragino Sans GB', 'Microsoft Yahei', Arial, sans-serif;
+  text-align: center;
+  display: inline-block;
+  border: 1rpx solid #ececec;
+  vertical-align: middle;
+  border-radius: 600rpx
+}
+.item-row {
+  background-color: white ;
+
+}

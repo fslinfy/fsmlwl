@@ -1,0 +1,15 @@
+<template name="temp_searchPanel">
+  <view class="search_panel">
+    <view class="search_line">
+      <text>入库开始日期:</text>
+      <input type="text" name="rq1" value="{{rq1}}" disabled='true' bindtap="bindDateChange"> </input>
+      <text>至:</text>
+      <input type="text" name="rq2" value="{{rq2}}" disabled='true' bindtap="bindDateChange1"></input>
+    </view>
+    <view class="search_line">
+      <text>客户:</text>
+      <input type="text" disabled='true' name="khmc" bindtap="bindkhmcSelect" value="{{khmc}}"></input>
+      <button formType="submit" type="primary" style="width:120rpx;">查询</button>
+    </view>
+  </view>
+</template>

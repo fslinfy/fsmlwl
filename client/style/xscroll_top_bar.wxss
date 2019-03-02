@@ -1,0 +1,33 @@
+.xscroll_bar {
+  overflow-y: hidden;
+  height: 80rpx;
+  line-height: 80rpx;
+  white-space: nowrap;
+  display: flex;
+  background: #ececec;
+}
+
+/*
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
+}*/
+
+.menu_item {
+  text-align: center;
+  font-size: 36rpx;
+  font-weight: 500;
+  display: inline-block;
+}
+
+.menu_item_border {
+  border-left: 1rpx solid #d3d3d3;
+}
+
+/*目前暂时不支持伪类，边距的去除只能动态判断*/
+
+.xscroll_bar .active {
+  color: blue;
+  background: #fff;
+}

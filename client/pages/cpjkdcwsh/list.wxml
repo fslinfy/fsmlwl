@@ -1,0 +1,49 @@
+<import src="../template/temp_loc_jkdmx.wxml" />
+<import src="../template/temp_calendar.wxml" />
+<import src="../template/temp_selectName.wxml" />
+<view class="container">
+  <view class="container-right">
+    <view class="container-center">
+      <scroll-view scroll-y="true" style="height: 100%;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+        <!--
+    <view class="list_header" style="height:130rpx;  font-size: 28rpx;">
+      <form bindsubmit="evaSubmit" report-submit='true'>
+        
+        <view class="form_panel">
+          <view class="form_line" style="height:60rpx; ">
+            <text  >入库开始日期:</text>
+            <input type="text" name="rq1" value="{{rq1}}" disabled='true' style="margin-right:10rpx;" bindtap="bindDateChange"> </input>
+            <text  >至:</text>
+            <input type="text" name="rq2" value="{{rq2}}" disabled='true' style="margin-right:10rpx;" bindtap="bindDateChange1"></input>
+          </view>
+
+          <view class="form_line" style="height:60rpx; ">
+            <text>客户:</text>
+            <input type="text" disabled='true' name="khmc" bindtap="bindkhmcSelect" value="{{khmc}}"></input>
+
+            <button formType="submit" class="weui-btn mini-btn" type="primary" style="width:120rpx;height:60rpx;font-size: 28rpx;margin:-5rpx 5rpx 3rpx 5rpx;	text-align: center;">查询</button>
+          </view>
+        </view>
+
+
+      </form>
+    </view>
+    -->
+        <view class="list_header">
+        </view>
+        <view class="list-item" wx:for="{{lists}}" wx:key="" catchtap="edit" data-obj="{{item}}">
+          <template is="temp_loc_jkdmx" data="{{...item}}" />
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+</view>
+
+<!-- get date  -->
+<view class="shade" style="padding-left:20%;" hidden="{{datedata.calendarHidden}}">
+  <template is="temp_calendar" data="{{...datedata}}" />
+</view>
+<!-- get name   -->
+<view class="shade" style="padding-left:20%;" hidden="{{options.hiddenSelectWindow}}">
+  <template is="temp_selectName" data="{{...options}}" />
+</view>

@@ -1,0 +1,122 @@
+<!-- <import src="template/temp_display_xsdmx.wxml" />-->
+<template name="temp_loc_ckdmx">
+  <view class="item-row">
+    <view class="item-col" style=" background:#FFC800; flex:13; ">
+      单号:
+      <text class="textbox">{{ckdh}}</text>
+      <view hidden="{{delbz==0}}">
+        <text style="color:red;">已作废</text>
+      </view>
+    </view>
+    <view class="item-col" style="background:#FFC800;width:80rpx;  ">
+      出库:
+      <text class="textbox">{{ckrq}}</text>
+    </view>
+  </view>
+
+  <view class="item-row">
+    <view class="item-col" style=" background:#FFC800;  " wx:if="{{kh>0}}">
+      仓库:
+      <text class="textbox">{{ckmc}}</text>
+    </view>
+    <view class="item-col" style=" background:#FFC800;  " wx:if="{{kh==0}}">
+      客户:
+      <text class="textbox">{{khjc}}</text>
+    </view>
+
+    <view class="item-col" style=" background:#FFC800;  ">
+      提货单:
+      <text class="textbox">{{sfdh}}</text>
+    </view>
+  </view>
+  <!--<view class="list-item" wx:for="{{xsdmx}}" style="height:auto;" >
+       
+          <template is="temp_display_xsdmx" data="{{xsdmx}}" />
+   </view>      -->
+  <view class="list-item-mx" wx:for="{{ckdmx}}" style="height:auto;">
+    <view wx:if="{{item.jeid==0}}">
+      <view class="form_line">
+        <text >商品:</text>
+        <text class="textbox">{{item.cpmc}}</text>
+      </view>
+      <view class="form_line">
+        <text >产地:</text>
+        <text class="textbox">{{item.cdmc}}</text>
+        <text>批号:</text>
+        <text class="textbox">{{item.cpph}}</text>
+
+      </view>
+      <view class="form_line">
+        <text >规格:</text>
+        <text class="textbox">{{item.bzmc}}</text>
+      </view>
+      <view class="form_line">
+        <text >数量:</text>
+        <text class="textbox" style="text-align:center;">{{item.ccsl}}</text>
+        <text style=" margin-right:20rpx;">{{item.jldw}}</text>
+        <text style=" margin-left:20rpx;text-align:right; "> 重量(吨):</text>
+        <text class="textbox" style="text-align:center;">{{item.cczl}}</text>
+      </view>
+    </view>
+    <view wx:if="{{item.jeid>0}}">
+      <view class="form_line">
+        <text >作业:</text>
+        <text class="textbox">{{item.cpmc}}</text>
+      </view>
+      <view class="form_line">
+        <text >重量(吨):</text>
+        <text class="textbox" style="text-align:center;">{{item.jczl}}</text>
+        <text >单价:</text>
+        <text class="textbox" style="text-align:center;">{{item.czdj}}</text>
+
+        <text style=" margin-left:20rpx;text-align:right; ">金额:</text>
+        <text class="textbox" style="text-align:center;">{{item.jcje}}</text>
+      </view>
+
+      <view class="form_line">
+        <text >搬运:</text>
+        <text class="textbox">{{item.byg}}</text>
+        <view class="checkbox_icon checkbox_0_selected" bindtap="bindbygSelect" style="width:60rpx;height:60rpx;margin-right:20rpx;" data-index="{{index}}" hidden="{{act!=1}}">...</view>
+      </view>
+      <view class="form_line">
+        <text >叉车:</text>
+        <text class="textbox">{{item.gs}}</text>
+        <view class="checkbox_icon checkbox_0_selected" bindtap="bindgsSelect" style="width:60rpx;height:60rpx;margin-right:20rpx;" data-index="{{index}}" hidden="{{act!=1}}">...</view>
+      </view>
+      <view class="form_line">
+        <text >仓管:</text>
+        <text class="textbox">{{item.cg}}</text>
+        <view class="checkbox_icon checkbox_0_selected" bindtap="bindcgSelect" style="width:60rpx;height:60rpx;margin-right:20rpx;" data-index="{{index}}" hidden="{{act!=1}}">...</view>
+      </view>
+
+    </view>
+  </view>
+  <view class="item-row">
+    <view class="item-col">
+      提货车牌:
+      <text class="textbox">{{cphm}}</text>
+    </view>
+    <view class="item-col">
+      提货司机:
+      <text class="textbox">{{thr}}</text>
+    </view>
+  </view>
+  <view class="item-row">
+    <view class="item-col">
+      开单:
+      <text class="textbox">{{czy}}</text>
+    </view>
+    <view class="item-col">
+      审核:
+      <text class="textbox">{{shr}}</text>
+    </view>
+  </view>
+  <view class="item-row" hidden="{{act==1}}">
+    <view class="item-col">
+      备注:
+      <text class="textbox" style="height:auto;margin: 5rpx 5rpx 5rpx 10rpx;  background-color: #eee; font-size:36rpx; ">{{cnote}}</text>
+    </view>
+  </view>
+  <view style=" background:lightcoral  ;height:18rpx;" hidden="{{act==1}}">
+  </view>
+</template>

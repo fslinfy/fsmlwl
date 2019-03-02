@@ -1,0 +1,34 @@
+<template name="edit_contents">
+  <input type="digit" name="Active" value="{{Active}}" hidden="true"></input>
+  <view class="form_line">
+    <text>商品代码</text>
+    <input type="text" maxlength="5" name="S_code" value="{{obj.S_code}}"></input>
+    <text>商品类别</text>
+    <input type="text" disabled="true" name="CT_name" value="{{CT_name}}"></input>
+  </view>
+  <view class="form_line">
+    <text>商品名称</text>
+    <input type="text" name="S_name" maxlength="40" placeholder="" value="{{obj.S_name}}"></input>
+  </view>
+  <view class="form_line">
+    <text>数量单位</text>
+    <input type="text" name="Quantity_Unit" disabled="true" maxlength="10" placeholder="" value="{{Quantity_Unit}}"></input>
+    <text>重量单位</text>
+    <input type="text" name="Weight_Unit" maxlength="10" disabled="true" placeholder="" value="{{Weight_Unit}}"></input>
+  </view>
+  <view class="form_line">
+    <text style="width:300rpx;">转换系数(重量/数量)</text>
+    <input type="digit" name="Rate" maxlength="10" placeholder="" value="{{Rate}}"></input>
+  </view>
+  <view class="form_line">
+    <text>规格</text>
+    <input type="text" name="Size" maxlength="20" placeholder="" value="{{obj.Size}}"></input>
+  </view>
+  <view class="form_line" wx:if="{{Id>0}}">
+    <text>活跃</text>
+    <checkbox-group bindchange="checkboxChange">
+      <checkbox value="1" checked="{{Active>0}}" />
+    </checkbox-group>
+  </view>
+
+</template>
