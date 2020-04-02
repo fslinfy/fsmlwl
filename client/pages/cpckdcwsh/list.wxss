@@ -1,3 +1,2 @@
-@import "../../utils/calendar.wxss";
+@import "../../style/selectname.wxss";
 @import "../../style/cpxsdedit.wxss";
-

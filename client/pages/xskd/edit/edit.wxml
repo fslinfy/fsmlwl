@@ -74,8 +74,8 @@
           </view>
         </view>
         <view class="form_line_header" style="padding:10rpx;align: right;">
-          <button formType="submit" disabled='{{xsdmx.length==0}}' class="weui-btn mini-btn" type="primary" style="width:50%;height:80rpx;	text-align: center;">提交</button>
-          <button bindtap="bindcancel" class="weui-btn mini-btn" type="primary" style="width:50%;height:80rpx;	text-align: center;">放弃</button>
+          <button formType="submit" disabled='{{xsdmx.length==0}}'  type="primary" style="width:45%;height:80rpx;">提交</button>
+          <button bindtap="bindcancel" type="primary" style="width:45%;height:80rpx;">放弃</button>
         </view>
       </form>
       <!--  </scroll-view>-->

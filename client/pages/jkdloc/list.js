@@ -14,27 +14,29 @@ var n_to = 1000 * (timestamp - 24 * 60 * 60 * 7);
 var startdate = ((new Date(n_to)).toISOString()).substring(0, 10);
 var enddate = ((new Date()).toISOString()).substring(0, 10);
 var ckid = 0;
-var callBackQuery = function (res, that) {
+var callBackQuery = function(res, that) {
   var obj = res.data.rows;
-  obj.forEach(function (item, index) {
+  var datamsg ='  没有符合的内容！';
+  obj.forEach(function(item, index) {
     //item['cnote'] = item.cnote.split('&~~').join('\n');
     item['cnote'] = Api.field_decode(item.cnote);
-   // item['sfr'] = Api.field_decode(item.sfr);
-   // item['cphm'] = Api.field_decode(item.cphm);
+    // item['sfr'] = Api.field_decode(item.sfr);
+    // item['cphm'] = Api.field_decode(item.cphm);
+    datamsg='';
     var jkdmx = item.jkdmx;
 
-    jkdmx.forEach(function (item2, index2) {
+    jkdmx.forEach(function(item2, index2) {
       item2.jcsl = Api.slrenderer(item2.jcsl);
       item2.jczl = Api.slrenderer(item2.jczl);
     })
     item['jkdmx'] = jkdmx;
   });
   that.setData({
-    lists: obj
+    lists: obj,datamsg:datamsg
   })
   wx.hideLoading();
 };
-var callBackckmcQuery = function (res, that) {
+var callBackckmcQuery = function(res, that) {
   that.setData({
     ckmclist: res.data.rows
   })
@@ -42,64 +44,64 @@ var callBackckmcQuery = function (res, that) {
 Page({
   data: {
     hidden: true,
+    datamsg:'',
     rq1: startdate,
     rq2: enddate,
     ckmc: '',
     ckid: 0,
     hiddenBoolean: true,
-    options: { hiddenSelectWindow: true },
-    datedata: { calendarHidden: true }
+    options: {
+      hiddenSelectWindow: true
+    },
+    datedata: {
+      calendarHidden: true
+    }
   },
-  fetchData: function () {
+  fetchData: function() {
     var that = this;
     wx.showLoading({
       title: 'loading...',
     })
-    if (getApp().globalData.current_khid>0)
-    {
+    if (getApp().globalData.current_khid > 0) {
       that.setData({
-        ckid:0
+        ckid: 0
       })
 
     }
-    Api.queryData(this,
-      {
-        act: "cpjkdlist",
-        loc: "cpjkdloc",
-        kh:1,
-        ckid: that.data.ckid,
-        startdate: that.data.rq1,
-        enddate: that.data.rq2,
-        khid: getApp().globalData.current_khid
-      }, callBackQuery
-    );
+    Api.queryData(this, {
+      act: "cpjkdlist",
+      loc: "cpjkdloc",
+      kh: 1,
+      ckid: that.data.ckid,
+      startdate: that.data.rq1,
+      enddate: that.data.rq2,
+      khid: getApp().globalData.current_khid
+    }, callBackQuery);
   },
-  onShow: function () {
-    Api.checkTime(); 
+  onShow: function() {
+    Api.checkTime();
     var vm = this;
     vm.fetchData();
   },
-  onLoad: function () {
+  onLoad: function() {
     var vm = this;
 
-    Api.queryData(this,
-      {
-        act: "ckmclist"
-      }, callBackckmcQuery
-    );
+    Api.queryData(this, {
+      act: "ckmclist"
+    }, callBackckmcQuery);
   },
-  hiddenBtn: function (e) {
+  hiddenBtn: function(e) {
     this.setData({
       hiddenBoolean: true
     })
   },
-  bindDateChange: function (e) {
+  bindDateChange: function(e) {
     this.setData({
       selectdate: 1
     });
     calendar.init(this, 1);
   },
-  bindDateChange1: function (e) {
+  bindDateChange1: function(e) {
     this.setData({
       selectdate: 2
     });
@@ -107,31 +109,16 @@ Page({
   },
 
   //******  get date option   ************************ */
-  preMonth: function () {
+  preMonth: function() {
     calendar.preMonth();
   },
-  nextMonth: function () {
+  nextMonth: function() {
     calendar.nextMonth();
   },
   selectDate: function (e) {
-    var vm = this;
-    var obj = vm.data.datedata;
-    obj["calendarHidden"] = true;
-    if (vm.data.selectdate == 1) {
-      vm.setData({
-        rq1: e.currentTarget.dataset.date.value,
-        datedata: obj
-      });
-
-    }
-    else {
-      vm.setData({
-        rq2: e.currentTarget.dataset.date.value,
-        datedata: obj
-      });
-    }
+    calendar.selectDate(e, this);
   },
-  CancelSelect: function (e) {
+  CancelSelect: function(e) {
     var vm = this;
     var obj = vm.data.datedata;
     obj["calendarHidden"] = true;
@@ -140,34 +127,34 @@ Page({
     });
   },
   //******  get date option            end  ************************ */
-  evaSubmit: function (e) {
-   if(! Api.checkTime()) return; 
+  evaSubmit: function(e) {
+    if (!Api.checkTime()) return;
     Api.saveFormId(e.detail.formId, wx.getStorageSync('current_openid'));
-   var d = e.detail.value.rq1;
-    startdate =new Date(Date.parse(d.replace(/-/g, "/")));
+    var d = e.detail.value.rq1;
+    startdate = new Date(Date.parse(d.replace(/-/g, "/")));
     var timestamp = Date.parse(startdate) / 1000;
-    var n_to = 1000 * (timestamp + 24 * 60 * 60 );
-        startdate = ((new Date(n_to)).toISOString()).substring(0, 10);
-         d = e.detail.value.rq2;
-        enddate = new Date(Date.parse(d.replace(/-/g, "/")));
-        timestamp = Date.parse(enddate) / 1000;
-        n_to = 1000 * (timestamp + 24 * 60 * 60);
-        enddate = ((new Date(n_to)).toISOString()).substring(0, 10);
-   
+    var n_to = 1000 * (timestamp + 24 * 60 * 60);
+    startdate = ((new Date(n_to)).toISOString()).substring(0, 10);
+    d = e.detail.value.rq2;
+    enddate = new Date(Date.parse(d.replace(/-/g, "/")));
+    timestamp = Date.parse(enddate) / 1000;
+    n_to = 1000 * (timestamp + 24 * 60 * 60);
+    enddate = ((new Date(n_to)).toISOString()).substring(0, 10);
+
 
     ckid = this.data.ckid;
     this.setData({
-      rq1:startdate,
+      rq1: startdate,
       rq2: enddate
     });
 
     this.fetchData();
   },
 
-  bindckmcSelect: function (e) {
+  bindckmcSelect: function(e) {
     var that = this;
     var list = that.data.ckmclist;
-//    var index = e.currentTarget.dataset.index;
+    //    var index = e.currentTarget.dataset.index;
     var obj = {};
     obj["selectTitle"] = "选择仓库";
     obj["nameList"] = list;
@@ -176,11 +163,11 @@ Page({
     });
     select.showSelectWindow(that, obj, false);
   },
-  selectCancelBtn: function (e) {
+  selectCancelBtn: function(e) {
     select.hiddenSelectWindow(this);
 
   },
-  selectBtn: function (e) {
+  selectBtn: function(e) {
     var that = this;
     var id = e.currentTarget.dataset.id;
     var index = e.currentTarget.dataset.index;
@@ -196,5 +183,3 @@ Page({
     select.hiddenSelectWindow(that);
   }
 })
-
-

@@ -15,7 +15,7 @@ function _dateShow(that,op) {
    }
    obj["curYear"] = y;
    obj["curMonth"] = mon;
-   obj["selectedDate"] = y + '-' + mon + '-' + d;
+   obj["selectedDate"] = y + '/' + mon + '/' + d;
    that.setData({
       datedata: obj,
       calendarHidden: obj["calendarHidden"]
@@ -41,7 +41,7 @@ function _init(that, op) {
    }
    obj["curYear"] = y;
    obj["curMonth"] = mon;
-   obj["selectedDate"] = y + '-' + mon + '-' + d;
+   obj["selectedDate"] = y + '/' + mon + '/' + d;
    that.setData({
       datedata: obj,
       calendarHidden: obj["calendarHidden"]
@@ -65,9 +65,9 @@ function _getDateList(y, mon) {
    dateList[0] = [];
    var weekIndex = 0;//第几个星期
    for (var i = 0; i < vm.data.datedata.daysCountArr[mon]; i++) {
-      var week = new Date(y + '-' + (mon + 1) + '-' + (i + 1)).getDay();
+      var week = new Date(y + '/' + (mon + 1) + '/' + (i + 1)).getDay();
       dateList[weekIndex].push({
-         value: y + '-' + (mon + 1) + '-' + (i + 1),
+         value: y + '/' + (mon + 1) + '/' + (i + 1),
          date: i + 1,
          week: week
       });
@@ -113,13 +113,33 @@ function _nextMonth() {
    });
    this.getDateList(curYear, curMonth - 1, vm);
 }
+
+function _selectDate (e,vm) {
+ 
+  var obj = vm.data.datedata;
+  obj["calendarHidden"] = true;
+  e.currentTarget.dataset.date.value=(e.currentTarget.dataset.date.value).replace('/', '-').replace('/', '-');
+  if (vm.data.selectdate == 1) {
+    vm.setData({
+      rq1: e.currentTarget.dataset.date.value,
+      datedata: obj
+    });
+  }
+  else {
+    vm.setData({
+      rq2: e.currentTarget.dataset.date.value,
+      datedata: obj
+    });
+  }
+}
+
 module.exports = {
    init: _init,
    dateShow: _dateShow,
    generateDate: _generateDate,
    getDateList: _getDateList,
    nextMonth: _nextMonth,
-   preMonth: _preMonth
-
+   preMonth: _preMonth,
+   selectDate: _selectDate
 };
 

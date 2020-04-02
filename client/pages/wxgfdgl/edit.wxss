@@ -1,0 +1,25 @@
+@import "../../utils/calendar.wxss";
+@import "../../style/cpxsdedit.wxss";
+@import "../../style/cpkclist.wxss";
+.form_panel {
+  height: 130rpx;
+}
+/*
+.quantity {
+  font-size: 48rpx;
+  height: 70rpx;
+}
+.quantity .number {
+  width: 170rpx;
+  height: 70rpx;
+  font-size: 48rpx;
+}
+.quantity .number input {
+  font-size: 48rpx;
+  height: 70rpx;
+}
+.quantity .number text {
+  font-size: 36rpx;
+  height: 70rpx;
+}
+*/

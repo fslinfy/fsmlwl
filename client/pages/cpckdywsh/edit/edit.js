@@ -12,23 +12,8 @@ var callBackQuery = function (res, that) {
   })
 
 };
-var callBackcpckdmxQuery = function (res, that) {
-  var ckdmx = res.data.rows;
-  var sumsl = 0;
-  var sumzl = 0;
-  ckdmx.forEach(function (item2, index2) {
-    sumsl = sumsl + parseFloat(item2.xssl);
-    sumzl = sumzl + parseFloat(item2.xszl);
-    item2.xssl = Api.slrenderer(item2.xssl);
-    item2.xszl = Api.slrenderer(item2.xszl);
-  })
-  that.setData({
-    ckdmx: ckdmx,
-    sumsl: sumsl,
-    sumzl: sumzl.toFixed(3)
-  })
 
-};
+
 Page(
   {
     data: {
@@ -41,6 +26,7 @@ Page(
       multipleChoice: true,
       hiddenSelectWindow: true,
       calendarHidden: true,
+      options: { hiddenSelectWindow: true},
       datedata: { calendarHidden: true }
     },
     checkboxChange: function (a) {
@@ -191,7 +177,7 @@ Page(
       var obj = that.data.obj;
       var msg = "提单：" + obj.ckdh;
       wx.showModal({
-        title: '真的作废当前提货单？',
+        title: '真的作废当前出仓单？',
         content: msg,
         success: function (res) {
           if (res.confirm) {
@@ -203,12 +189,11 @@ Page(
                 act: "cpckdshsave",
                 options: "delete",
                 ckid: obj.ckid,
+                shbz:that.data.shbz,
                 shr: getApp().globalData.current_username
               },
               success: function (res) {
-                
                 Api.saveResoult(res);
-                
               }
             })
           }
@@ -228,13 +213,10 @@ Page(
       var vm = this;
       var obj = vm.data.datedata;
       obj["calendarHidden"] = true;
-
       obj["selectedDate"] = e.currentTarget.dataset.date.value;
-
       var timestamp = Date.parse(new Date()) / 1000;
       var n_to = 1000 * (timestamp + 24 * 60 * 60 * 0);
       var today = ((new Date(n_to)).toISOString()).substring(0, 10);
-
       if (vm.data.selectdate == 1) {
         obj["xsrq"] = obj["selectedDate"];
         obj["endrq"] = vm.data.endrq;

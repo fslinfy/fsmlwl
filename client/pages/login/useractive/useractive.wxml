@@ -34,13 +34,13 @@
             <text>重输密码</text>
             <input type="password" maxlength="20" name="password2" value=""></input>
           </view>
-          <view class="form_line">
+          <!--<view class="form_line">
             <text style="width:330rpx;margin-top:10rpx;  ">用户捆绑此微信号登录</text>
             <checkbox-group bindchange="checkboxChange">
               <checkbox value="1" checked="{{wxlogin>0}}" />
             </checkbox-group>
 
-          </view>
+          </view>-->
           <view class="form_line">
             <button formType="submit">激活用户</button>
           </view>

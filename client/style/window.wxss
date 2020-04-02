@@ -1,0 +1,44 @@
+.window_view {
+   width: 90%;
+   height: auto;
+   margin: 10rpx 0rpx 0rpx 0rpx;
+   padding: 10rpx 5rpx 10rpx 5rpx;
+   background-color: navy;
+   display: flex;
+   flex-direction: column;
+   border-width: 2rpx 2rpx 2rpx 2rpx;
+   box-shadow: 5rpx 5rpx 3rpx #888;
+}
+.window-header {
+  height: 90rpx;
+  display: flex;
+  flex-direction:row;
+  background-color: navy;
+}
+.window-icon {
+  height:100%;
+  width:70rpx;
+  align-items: right; 
+  margin:10rpx 2rpx 10rpx  0rpx;
+}
+.window-title {
+  height: 100%;
+  flex:1;
+  margin:10rpx 0rpx 10rpx  0rpx;
+  color:  #fff  ;
+  font-weight: 600;
+  text-align: center;
+}
+.shade {
+  padding-top: 0rpx;
+  box-sizing: border-box;
+}
+.shade, .layer {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  border: 0rpx;
+  z-index: 5;
+}

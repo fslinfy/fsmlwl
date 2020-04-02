@@ -17,6 +17,42 @@ Page({
           Name: "操作员资料管理",
           Page: "../khusers/list"
         }
+        /*,
+        {
+          Name: "过车通知单申请",
+          Page: "../wxgfdgl/edit"
+        }
+        ,
+        {
+          Name: "过车通知单审核",
+          Page: "../wxgfdsh/list"
+        }
+        ,
+        {
+          Name: "过车通知单查询",
+          Page: "../wxgfdloc/list"
+        }
+        ,
+        {
+          Name: "test",
+          Page: "../cpckdgl/edit"
+        }
+        ,
+        {
+          Name: "过户通知单申请",
+          Page: "../wxghdgl/list"
+        }
+        ,
+        {
+          Name: "过户通知单审核",
+          Page: "../wxghdsh/list"
+        }
+        ,
+        {
+          Name: "过户通知单查询",
+          Page: "../wxghdloc/list"
+        }*/
+          
       ]
     ],
     ckmenu: [
@@ -29,17 +65,37 @@ Page({
           Page: "../logs/list"
         },
         {
-          Name: "商品库存查询",
-          Page: "../cpkc/list"
-        },
+          Name: "公司操作员维护",
+          Page: "../khusers/list"
+        }
+         ,
+        {
+          Name: "用户组维护",
+          Page: "../usertype/list"
+        }
+        ,
+        {
+          Name: "商品出库管理",
+          Page: "../cpckdgl/edit"
+        }
+        /*,
         {
           Name: "商品进仓汇总",
           Page: "../cpjkwz/list"
         },
         {
+          Name: "商品出仓汇总",
+          Page: "../cpckwz/list"
+        },
+        {
           Name: "吞吐量统计",
           Page: "../cpjcttloc/list"
         }
+        ,
+        {
+          Name: "test",
+          Page: "../test/index"
+        }*/
       ]
     ],
     userlogin: getApp().globalData.userlogin,

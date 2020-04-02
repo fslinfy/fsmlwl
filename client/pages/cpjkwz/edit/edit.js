@@ -7,15 +7,16 @@ var callBackQuery = function (res, that) {
   var sumsl=0;
   var sumzl=0;
   obj.forEach(function (item, index) {
+    sumsl = sumsl + Number(item.jcsl);
+    sumzl = sumzl + Number(item.jczl); 
+
       item.jcsl = Api.slrenderer(item.jcsl);
       item.jczl = Api.slrenderer(item.jczl);
-    sumsl = sumsl + item.jcsl;
-    sumzl = sumzl + item.jczl; 
   });
   that.setData({
     lists: obj,
-    sumsl:sumsl,
-    sumzl:sumzl
+    sumsl: Api.slrenderer(sumsl),
+    sumzl: Api.slrenderer(sumzl)
   })
   wx.hideLoading();
 };
@@ -40,8 +41,8 @@ Page({
       title: options.khjc
     })
     that.setData({
-      rq1: options.rq1,
-      rq2: options.rq2,
+      rq1: options.startdate,
+      rq2: options.enddate,
       khid: options.khid,
       khmc: options.khjc
     });
@@ -51,8 +52,8 @@ Page({
         loc: "cpjkdwzmx",
         khid: options.khid,
         khmc: options.khmc,
-        startdate: options.rq1,
-        enddate: options.rq2,
+        startdate: options.startdate,
+        enddate: options.enddate,
         ckid: getApp().globalData.current_l_id
       }, callBackQuery
     );

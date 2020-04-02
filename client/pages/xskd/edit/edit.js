@@ -112,17 +112,19 @@ Page(
       var that = this;
       var sumsl = 0;
       var sumzl = 0;
-
+      var curzl=0;
       o.forEach(function (item2, index2) {
         if (!isNaN(parseFloat(item2.sl))) sumsl = sumsl + parseFloat(item2.sl);
-        if (!isNaN(parseFloat(item2.zl))) sumzl = sumzl + (parseFloat(item2.zl)).toFixed(3);
+        if (!isNaN(parseFloat(item2.zl))) sumzl = sumzl + parseFloat(item2.zl);
       })
-      if (isNaN(sumsl)) sumsl = 0;
-      if (isNaN(sumzl)) sumzl = 0;
+      sumzl=sumzl.toFixed(3);
+      sumsl = sumsl.toFixed(3);
+      //if (isNaN(sumsl)) sumsl = 0;
+      //if (isNaN(sumzl)) sumzl = 0;
       that.setData({
         xsdmx: o,
-        sumsl: sumsl,
-        sumzl: sumzl
+        sumsl: Api.slrenderer( sumsl),
+        sumzl: Api.slrenderer(sumzl)
       })
 
     },
@@ -236,7 +238,7 @@ Page(
       var vm = this;
       var obj = vm.data.datedata;
       obj["calendarHidden"] = true;
-      obj["selectedDate"] = e.currentTarget.dataset.date.value;
+      obj["selectedDate"] = (e.currentTarget.dataset.date.value).replace('/', '-').replace('/', '-');
 
       var timestamp = Date.parse(new Date()) / 1000;
       var n_to = 1000 * (timestamp + 24 * 60 * 60 * 0);
@@ -399,8 +401,8 @@ Page(
       cnote = Api.field_encode(cnote);
       sfr = sfr.replace("\n",' ');
       cphm = cphm.replace("\n", ' ');
-     // cphm = Api.field_encode(cphm);
-
+      cphm = Api.field_encode(cphm);
+      sfr = Api.field_encode(sfr);
      
         
 
@@ -493,19 +495,6 @@ Page(
             })
             return;
 
-
-            wx.showModal({
-              title: '请选择',
-              confirmText: '公司月结',
-              cancelText: '司机付现',
-              content: "公司月结还是司机付现",
-              success: function (res) {
-        
-              },
-              fail: function (e) {
-                wx.hideLoading();
-              }
-            })
           }
         })
     },

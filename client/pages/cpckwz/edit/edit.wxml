@@ -1,0 +1,36 @@
+<view class="container">
+  <view class="container-right">
+    <view class="container-center">
+      <scroll-view scroll-y="true" style="height: 100%;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+        <view class="list_header">
+        </view>
+        <view class="list_header_text">
+          <view class="item-row" style="height:60rpx;  background: #fcd33d ;">
+            <text style="text-align:left;width:60%;margin-top:-3rpx; ">商品名称</text>
+            <text style="text-align:right;width:20%;margin-top:-3rpx; ">数量</text>
+            <text style="text-align:center;width:20%;margin-top:-3rpx; ">重量</text>
+          </view>
+        </view>
+        <view class="list-item" wx:for="{{lists}}" wx:key="" data-obj="{{item}}">
+          <view class="item-row">
+            <view style="width:60%;">
+              {{item.cpmc}}
+            </view>
+            <view style="width:20%;">
+              {{item.ccsl}}
+            </view>
+            <view style="width:20%;">
+              {{item.cczl}}
+            </view>
+          </view>
+        </view>
+        <view class="list_header_text" hidden="{{sumsl==0}}">
+          <view class="item-row" style="height:60rpx;font-size:34rpx;  background: beige  ;">
+            <text style='text-align:left;'>合计数量：{{sumsl}}</text>
+            <text>重量：{{sumzl}}</text>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+</view>

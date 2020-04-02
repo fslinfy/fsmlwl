@@ -1,28 +1,38 @@
 <view class="container">
-  <view class="list_header_text">
-    <view class="item-row" style="height:30rpx;margin-top: -3rpx;">
-      <text style="text-align:center;width:20%;margin-left:-30rpx;">ID</text>
-      <text style="text-align:left;width:20%;margin-left: -10rpx;">代码</text>
-      <text style="text-align:left;width:40%;margin-left: -10rpx;">名称</text>
-      <view class="checkbox_icon checkbox_1_selected" style="width:60rpx;height:60rpx;margin-top: 8rpx;margin-right: 15rpx;" bindtap="add">+</view>
+  <view class="container-right">
+    <view class="list_header_text" style="display: flex;  flex-direction: row;">
+      <text style="text-align:center;width:25%;">用户ID</text>
+      <text style="width:25%;margin-left: 25rpx;">用户代码</text>
+      <text style="text-align:left;width:40%;margin-left: 100rpx;">名称</text>
+      <view class="checkbox_icon checkbox_1_selected" style="width:60rpx;height:60rpx;margin-top: 4rpx;margin-right: 20rpx;" bindtap="add">+</view>
+    </view>
+    <!-- <view class="list_header_text">
+    </view>-->
+    <view class="container-center">
+      <scroll-view scroll-y="true" style="height: 100%;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+        <view wx:for="{{userslist}}" wx:key="">
+          <template is="temp_users" data="{{...item}}" />
+        </view>
+      </scroll-view>
     </view>
   </view>
-  <view class="container-center">
-    <scroll-view scroll-y="true" style="height: 100%;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
-      <view class="list-item" wx:for="{{lists}}" wx:key="" catchtap="edit" data-obj="{{item}}">
-        <view class="item-row" style="font-size:42rpx;">
-          <view style="width:25%;">
-            {{item.userid}}
-          </view>
-          <view style="width:25%;">
-            {{item.usercode}}
-          </view>
-          <view style="width:50%;">
-            {{item.username}}
-          </view>
-        </view>
-      </view>
-    </scroll-view>
-  </view>
-  <!--<icon type="success" size="50" class="post" bindtap="add"> </icon>-->
 </view>
+
+<template name="temp_users">
+  <view class="list_header_text" style="font-size: 30rpx;height:50rpx;text-align:left;" hidden="{{typename==''}}">
+    {{typename}}
+  </view>
+  <view wx:for="{{users}}" style="height:auto;">
+    <view class="item-row" catchtap="edit" style="font-size: 42rpx;" data-obj="{{item}}">
+      <view style="width:25%;">
+        {{item.userid}}
+      </view>
+      <view style="width:25%;">
+        {{item.usercode}}
+      </view>
+      <view style="width:50%;">
+        {{item.username}}
+      </view>
+    </view>
+  </view>
+</template>

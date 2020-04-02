@@ -8,6 +8,22 @@
         <icon type="clear" size="24" bindtap="selectCancelBtn"> </icon>
       </view>
     </view>
+     
+     <!--<view class="list_header_text" style="padding:2rpx;" wx:if="{{needsearch}}" >-->
+     <view class="list_header_text" style="padding:1rpx;height:80rpx;"   wx:if="{{needsearch}}" >
+      <view class="item-row"   style="width:100%;" >
+         <view   style="width:100%;" >
+          <view  style='border: 1rpx solid #d0d0d0; border-radius: 10rpx;  display: flex;  flex-direction: olumn; width:96%;padding:5rpx;'>
+         <!--  <icon style='margin:5rpx 5rpx 2rpx 5rpx;' size='20' type='search'></icon>-->
+            
+           <icon  style='position:relative;  margin-top:5rpx; margin-left:5rpx; ' size='20' type='search'></icon>
+           <input type="text" style='margin: 2rpx 2rpx 2rpx 2rpx; height: 50rpx; border-radius: 5px;  background: white; text-align:left;' bindinput="bindfilter"   value="{{searchvalue}}" />
+          </view>
+         </view>
+      </view>
+    </view>
+
+
     <view class="container-right">
       <scroll-view scroll-y="true" style="height: 100%;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
         <view class="list-item-select{{item.Name=='确认'?'_ok':''}}" wx:for="{{nameList}}" wx:key="" bindtap="selectBtn" data-index="{{index}}" data-id="{{item.Id}}" data-name="{{item.Name}}">

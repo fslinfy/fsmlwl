@@ -7,7 +7,8 @@ var calendar = require("../../../utils/calendar.js");
 var select = require("../../../utils/selectName.js");
 var callBackQuery = function (res, that) {
   that.setData({
-    selectData: res.data
+    selectData: res.data,
+    currentkhid: getApp().globalData.current_khid
   })
 
 };
@@ -51,6 +52,8 @@ Page(
       hiddenSelectWindow:true,
       calendarHidden: true,
       Weight_sum: 0,
+      currentkhid: getApp().globalData.current_khid,
+      options: { hiddenSelectWindow: true },
       datedata: { calendarHidden: true }
     },
     checkboxChange: function (a) {
@@ -80,26 +83,12 @@ Page(
       });
       calendar.init(this, 1);
     },
-
-
-
-
-
-
     bindcancel: function (e) {
       wx.navigateBack();
-
-
     },
-
-
     //******  select name option   ************************ */
-
-
-
     selectCancelBtn: function (e) {
       select.hiddenSelectWindow(this);
-
     },
     selectBtn: function (e) {
       var that = this;
@@ -126,9 +115,6 @@ Page(
       }
       select.hiddenSelectWindow(that);
     },
-
-
-
     bindcphmSelect: function (e) {
       var that = this;
       var list = that.data.selectData.cphm;
@@ -244,7 +230,7 @@ Page(
       var obj = vm.data.datedata;
       obj["calendarHidden"] = true;
 
-      obj["selectedDate"] = e.currentTarget.dataset.date.value;
+      obj["selectedDate"] = (e.currentTarget.dataset.date.value).replace('/', '-').replace('/', '-');
 
       var timestamp = Date.parse(new Date()) / 1000;
       var n_to = 1000 * (timestamp + 24 * 60 * 60 * 0);
@@ -352,16 +338,19 @@ Page(
         })
         return;
       }
+
+
       var cnote = e.detail.value.cnote;
       if (!Api.checkField(cnote, '备注')) return;
       if (!Api.checkField(sfr, '提货人')) return;
       if (!Api.checkField(cphm, '车牌号码')) return;
       cnote = Api.field_encode(cnote);
+
       sfr = sfr.replace("\n", ' ');
       cphm = cphm.replace("\n", ' ');
      // sfr=sfr.split("\n")
-     // sfr = Api.field_encode(sfr);
-    //  cphm = Api.field_encode(cphm);
+      sfr = Api.field_encode(sfr);
+      cphm = Api.field_encode(cphm);
 
       wx.showModal({
         title: '提示',
@@ -395,7 +384,12 @@ Page(
                     content: '此提货单已审核成功！',
                     showCancel: false,
                     success: function (res) {
-                      wx.navigateBack();
+                      var url = '../../xsdview/edit?level=2&id=' + that.data.id;
+                          wx.navigateTo({
+                         url: url
+                      })
+                      return;
+
                     }
                   })
                 }
@@ -414,7 +408,89 @@ Page(
         }
       })
     },
+    edit: function (e) {
+   //   var url = '/pages/xsdview/edit?id=' + this.data.id;
+  //    wx.navigateTo({
+    //    url: url
+     // })
+    },
+
+
+
+    onShareAppMessage: function (res) {
+
+      if (res.from === 'button') {
+        let target_id = res.target
+        console.log(res);
+
+
+      }
+      console.log('id', this.data.id);
+      return {
+        title: '明联物流',
+        desc: '微信小程序管理系统',
+        path: '/pages/xsdview/edit?id='+this.data.id,
+        success: function (res) {
+          console.log('res', res);
+          if (res.errMsg == 'shareAppMessage:ok') {//判断分享是否成功
+           
+            if (res.shareTickets == undefined) {//判断分享结果是否有群信息
+              //分享到好友操作...
+              console.log("分享到好友操作...");
+            } else {
+              //分享到群操作...
+              var shareTicket = res.shareTickets[0];
+              wx.getShareInfo({
+                shareTicket: shareTicket,
+                success: function (e) {
+                  //当前群相关信息
+                  var encryptedData = e.encryptedData;
+                  var iv = e.iv;
+                  console.log(iv, encryptedData, shareTicket);
+                }
+              })
+          }
+          }
+        },
+        fail: function (res) {
+          console.log(" 转发失败");
+        },
+        complete:function(res)
+        {
+          console.log(" complete",res);
+          console.log('res', res);
+          if (res.errMsg == 'shareAppMessage:ok') {//判断分享是否成功
+
+            if (res.shareTickets == undefined) {//判断分享结果是否有群信息
+              //分享到好友操作...
+              console.log("分享到好友操作...");
+            } else {
+              //分享到群操作...
+              var shareTicket = res.shareTickets[0];
+              wx.getShareInfo({
+                shareTicket: shareTicket,
+                success: function (e) {
+                  //当前群相关信息
+                  var encryptedData = e.encryptedData;
+                  var iv = e.iv;
+                  console.log(iv, encryptedData, shareTicket);
+                }
+              })
+            }
+          }
+        }
+
+
+
+
+      }
+    },
     onLoad: function (options) {
+      console.log('app.globalData.userInfo', getApp().globalData.userlogin);
+      wx.showShareMenu({
+        withShareTicket: true
+      });
+
       var ctitle = "提货单查询";
       if (options.act == 0) {
         ctitle = "提货单审核";
@@ -422,21 +498,24 @@ Page(
       wx.setNavigationBarTitle({
         title: ctitle
       })
+      
       var timestamp = Date.parse(new Date()) / 1000;
       //加一天的时间：  
       var n_to = 1000 * (timestamp + 24 * 60 * 60 * 2);
       var tomorrow_date = new Date(n_to);
       var that = this;
       var obj = options.obj;
+     console.log(obj);
       if (obj) {
         var obj = JSON.parse(options.obj);
         xsid = obj.xsid;
         that.setData({
           obj: obj,
           xsdmx: [],
+          currentkhid: getApp().globalData.current_khid,
           id: obj.xsid,
           ckmc: obj.ckmc,
-          ckid: obj.ckid,
+          ckid: obj.L_id,
           xsdh: obj.xsdh,
           cphm: obj.cphm,
           sfr: obj.sfr,
@@ -445,6 +524,7 @@ Page(
           cnote: obj.cnote,
           czy: obj.czy,
           hiddenSelectWindow: true,
+          datedata: { calendarHidden: true },
           xsrq: obj.xsrq,
           endrq: obj.endrq
         });

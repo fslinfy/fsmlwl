@@ -14,7 +14,7 @@ Page({
     userid:0 ,
     button_text: "发验证码到手机",
     smsphone: '',
-    wxlogin:1,
+    wxlogin:0,
     sendstatus: 0,
     username: '',
     canIUse: wx.canIUse('button.open-type.getUserInfo')
@@ -139,7 +139,7 @@ Page({
       second: 0,
       button_text: '发验证码到手机'
     });
-
+    var guid = that.data.userInfo.nickName;
     wx.request({
       url: getApp().globalData.servsers + "/checklogin",
       header: { "Content-type": "text/html", "charset": "utf-8" },
@@ -149,6 +149,7 @@ Page({
         userid: userid,
         password: psw1,
         vcode: vcode,
+        guid:guid,
         wxlogin: that.data.wxlogin,
         openid: wx.getStorageSync('current_openid'),
         nickName: that.data.userInfo.nickName

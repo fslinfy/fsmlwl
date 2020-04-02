@@ -5,6 +5,8 @@ function _init(that) {
    obj["selectTitle"] = "选择";
    obj["hiddenSelectWindow"] = true;
    obj["nameList"] =[];
+   obj["searchList"] = [];
+   obj["searchvalue"]="";
    vm.setData({
       options: obj,
       hiddenSelectWindow:true
@@ -17,6 +19,30 @@ function _hiddenSelectWindow(vm) {
       options: obj,
       hiddenSelectWindow: true
    });
+}
+function _listfilter(vm,val) {
+  
+  
+  var newlist=[];
+  //var val = vm.data.options.searchvalue;
+  console.log(val, vm.data.options.searchList);
+  
+  if (vm.data.options.searchList)
+  {
+    var searchlist =  vm.data.options.searchList;
+    searchlist.forEach(function (item, index) {
+      if ( (item.Name).indexOf(val) > -1 )  {
+        newlist.push(item);
+      }
+    })
+    var obj = vm.data.options
+    obj.nameList=newlist;
+    obj.searchvalue=val;
+    
+    vm.setData({
+      options:obj
+     })
+  }
 }
 
 function _check (e,that) {
@@ -98,6 +124,7 @@ module.exports = {
    init: _init,
    hiddenSelectWindow: _hiddenSelectWindow,
    showSelectWindow: _showSelectWindow,
-   check: _check
+   check: _check,
+   listfilter:_listfilter
 };
 

@@ -91,7 +91,7 @@
 
     </view>
   </view>
-  <view class="item-row">
+<!--  <view class="item-row">
     <view class="item-col">
       提货车牌:
       <text class="textbox">{{cphm}}</text>
@@ -100,7 +100,21 @@
       提货司机:
       <text class="textbox">{{thr}}</text>
     </view>
+  </view>-->
+
+    <view class="item-row">
+    <view class="item-col">
+      提货车牌:
+      <text class="textbox">{{cphm}}</text>
+    </view>
   </view>
+  <view class="item-row">
+    <view class="item-col">
+      提货司机:
+      <text class="textbox">{{thr}}</text>
+    </view>
+  </view>
+
   <view class="item-row">
     <view class="item-col">
       开单:

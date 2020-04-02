@@ -1,109 +1,123 @@
-<import src="../../template/temp_display_xsdmx.wxml" />
-<import src="../../template/temp_calendar.wxml" />
 <import src="../../template/temp_selectName.wxml" />
+
 <view class="container">
-  <view class="container-center">
-    <scroll-view scroll-y="true" class="xscroll-y" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
-      <view class="form_container">
-        <view class="form_header">
+
+
+  <view class="form_container">
+    <view class="form_header" style="height:60rpx;">
+    </view>
+    <form bindsubmit="evaSubmit" report-submit='true'>
+      <view class="form_panel_col" style="margin-left:0rpx;height:460rpx;">
+        <view class="form_line_header " style="height:70rpx;padding:5rpx;"  hidden="{{khid>0}}">
+          <text>用户组:</text>
+          <text class='textbox'>{{typename}}</text>
+           <view class="checkbox_icon checkbox_0_selected" bindtap="bindSelect" style="width:60rpx;height:60rpx;margin-right:20rpx;margin-top:10rpx;">...</view>
         </view>
-        <form bindsubmit="edit_save" report-submit='true'>
-          <input type="digit" name="active" value="{{active}}" hidden="true"></input>
-          <view class="form_line">
-            <view class="form_panel_row">
-              <text style=" width:130rpx; ">用户代码</text>
-              <input type="text" name="usercode" maxlength="20" placeholder="" value="{{obj.usercode}}"></input>
-            </view>
-            <view class="form_panel_row">
-              <text style=" width:100rpx; ">用户ID:</text>
-              <text style="color:#000000;">{{id}}</text>
-            </view>
-          </view>
-          <view class="form_line">
-            <text>用户名称</text>
-            <input type="text" name="username" maxlength="20" placeholder="" value="{{obj.username}}"></input>
-          </view>
-          <view class="form_line">
-            <text>手机号码</text>
-            <input type="text" name="smsphone" maxlength="20" placeholder="" value="{{obj.smsphone}}"></input>
-          </view>
 
-          <view class="form_line">
-            <text>微信号:</text>
-            <text style="color:#000000;">{{obj.wxnumber}}</text>
-            <!--<input type="text" name="wxnumber" maxlength="20" placeholder="" value="{{obj.wxnumber}}"></input>-->
-          </view>
-          <view class="form_line">
-            <text>微信名称:</text>
-            <text style="color:#000000;">{{obj.wxname}}</text>
-            <!--
-            <input type="text" name="wxname" maxlength="20" placeholder="" value="{{obj.wxname}}"></input>-->
-          </view>
-          <view class="form_line">
-            <view class="form_panel_row">
-              <text>修改权限</text>
-              <checkbox-group bindchange="checkboxChange_edit">
-                <checkbox value="1" checked="{{edit>0}}" />
-              </checkbox-group>
-            </view>
-            <view class="form_panel_row">
-              <text>删除权限</text>
-              <checkbox-group bindchange="checkboxChange_del">
-                <checkbox value="1" checked="{{del>0}}" />
-              </checkbox-group>
-            </view>
-          </view>
 
-          <view class="form_line">
-            <view class="form_panel_row">
-              <text>审核权限</text>
-              <checkbox-group bindchange="checkboxChange_sh">
-                <checkbox value="1" checked="{{sh>0}}" />
-              </checkbox-group>
-            </view>
+        <view class="form_line_header " style="height:70rpx;padding:5rpx;">
+          <text>用户  ID:</text>
+          <text class='textbox'>{{id}}</text>
+        </view>
+        <view class="form_line_header " style="height:70rpx;padding:5rpx;">
+          <text>用户代码:</text>
+          <input type="text" name="usercode" value="{{usercode}}" style="margin-right:10rpx;width:100rpx;"></input>
+          
+        </view>
+        <view class="form_line_header " style="height:70rpx;padding:5rpx;">
+          <text>用户名称:</text>
+          <input type="text" name="username" value="{{username}}" style="margin-right:10rpx;"></input>
+        </view>
 
-            <view class="form_panel_row">
-              <text>系统管理</text>
-              <checkbox-group bindchange="checkboxChange_sys">
-                <checkbox value="1" checked="{{lastdel>0}}" />
-              </checkbox-group>
-            </view>
+        <view class="form_line_header " style="height:70rpx;padding:5rpx;">
+          <text>手机号码:</text>
+          <input type="text" name="smsphone" value="{{smsphone}}" style="margin-right:10rpx;"></input>
+        </view>        
+
+        <view class="form_panel_row" style="margin-top:10rpx;"  hidden="{{khid==0}}" >
+          <view class="form_line_header">
+            <text>新增单据权限</text>
+            <checkbox-group bindchange="checkboxChange_new">
+              <checkbox value="1" checked="{{new>0}}" />
+            </checkbox-group>
           </view>
-          <view class="form_line" wx:if="{{id>0}}">
-            <!--
-              <view class="form_panel_row">
-                <text>用户激活</text>
-                <checkbox-group>
-                  <checkbox value="1" checked="{{snsactive>0}}   " />
-                </checkbox-group>
-              </view>
-              -->
-            <view class="form_panel_row">
-              <text>用户有效 </text>
-              <checkbox-group bindchange="checkboxChange">
-                <checkbox value="1" checked="{{active>0}}" />
-              </checkbox-group>
-            </view>
-          </view>
-          <view class="form_line">
-            <button formType="submit">保 存</button>
-          </view>
-        </form>
-        <view class="form_line" style="height:100rpx;">
-          <view class="form_line" bindtap="changesmsactive" wx:if="{{smsactive}}">
-            <text style=" width:100%;text-align：right;margin-top:15rpx; ">取消用户激活状态</text>
-          </view>
-          <view class="form_line" bindtap="unlocked" wx:if="{{obj.locked==1}}">
-            <text style=" width:100%;text-align：right;margin-top:15rpx; ">解锁处理</text>
+          <view class="form_line_header">
+            <text>编辑单据权限</text>
+            <checkbox-group bindchange="checkboxChange_edit">
+              <checkbox value="1" checked="{{edit>0}}" />
+            </checkbox-group>
           </view>
         </view>
-        <view class="form_line" style="height:100rpx;">
-          <view class="delete_line" bindtap="delete" wx:if="{{id>0}}">
-            <image src="../../../images/icon_delete.png" />
-            <text style=" width:140rpx;margin-top:-0rpx; ">删除用户</text>
+
+        <view class="form_panel_row"  hidden="{{khid==0}}">
+          <view class="form_line_header">
+            <text>删除单据权限</text>
+            <checkbox-group bindchange="checkboxChange_del">
+              <checkbox value="1" checked="{{del>0}}" />
+            </checkbox-group>
           </view>
+          <view class="form_line_header">
+            <text>业务审核权限</text>
+            <checkbox-group bindchange="checkboxChange_sh">
+              <checkbox value="1" checked="{{sh>0}}" />
+            </checkbox-group>
+          </view>
+        </view>
+        <view class="form_panel_row">
+          <view class="form_line_header">
+            <text>用户有效状态</text>
+            <checkbox-group bindchange="checkboxChange_active">
+              <checkbox value="1" checked="{{active>0}}" />
+            </checkbox-group>
+          </view>
+          <view class="form_line_header">
+            <text>系统管理权限</text>
+            <checkbox-group bindchange="checkboxChange_lastdel">
+              <checkbox value="1" checked="{{lastdel>0}}" />
+            </checkbox-group>
+          </view>
+
         </view>
       </view>
-    </scroll-view>
+      <view class="list-item" hidden="{{khid==0}}" >
+        <view class="form_header" style="height:70rpx;display: flex;  flex-direction: row;">
+           <view class="add-btn" catchtap="selectedall" style="margin-left:12rpx; " >
+            <icon type="{{selected==1 ? 'success' : 'circle'}}" color="orange" size="26"></icon>
+          </view>
+          <view>功能权限设置</view>
+        </view>
+        <view class="list-item1" wx:for="{{lists}}" wx:key="" catchtap="selectededit" data-obj="{{item}}">
+          <view class="add-btn">
+            <icon type="{{item.selected==1 ? 'success' : 'circle'}}" color="orange" size="26"></icon>
+          </view>
+          {{item.Name}}
+        </view>
+      </view>
+      <view class="form_line_header" style="padding:0rpx;align: right;">
+        <button formType="submit" disabled='{{xsdmx.length==0 }}'  hidden="{{systemlastdel==0&&khsystem==false}}" type="primary" style="width:45%;height:80rpx;">保  存</button>
+        <button bindtap="bindcancel" type="primary" style="width:45%;height:80rpx;">放弃</button>
+      </view>
+    <view class="form_header" style="height:100rpx;" hidden="{{systemlastdel==0&&khsystem==false}}" >
+      <view class="form_line" style="height:100rpx;" hidden="{{id==0}}">
+          <view class="delete_line" bindtap="deleteusertype"  >
+            <image src="../../../images/icon_delete.png" />
+            <text style=" width:200rpx;margin-top:-0rpx;color:#000; ">删除此用户</text>
+          </view>
+        </view>
+        </view>
+    </form>
+    <!--  </scroll-view>-->
+    
+        
+    
+
+
   </view>
+
+</view>
+
+
+<!--get name   -->
+<view class="shade" style="padding-left:20%;" hidden="{{options.hiddenSelectWindow}}">
+  <template is="temp_selectName" data="{{...options}}" />
 </view>

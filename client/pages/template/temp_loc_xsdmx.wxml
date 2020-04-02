@@ -1,23 +1,36 @@
 <!-- <import src="template/temp_display_xsdmx.wxml" />-->
 <template name="temp_loc_xsdmx">
-  <view class="item-row">
-    <view class="item-col" style="flex:13; background:#FFC800;  ">
+
+<view class="item-row" >
+    <view class="item-col" style="flex:17; background:#FFC800; margin-right :1rpx; " >
+      客户:
+      <text class="textbox">{{khmc}}</text>
+
+  </view>
+  </view>
+<view class="item-row">
+    <view class="item-col" style="flex:17; background:#FFC800; margin-right :1rpx; ">
       提单:
       <text class="textbox">{{xsdh}}</text>
-      <view hidden="{{delbz==0}}">
-        <text style="color:red;">已作废</text>
-      </view>
     </view>
-    <view class="item-col" style="background:#FFC800;  ">
-      开单:
-      <text class="textbox">{{xsrq}}</text>
+    <view class="item-col" style="background:#FFC800; margin-right :5rpx; " hidden="{{delbz==0}}" >
+    
+        <text style="color:red;margin-top:5rpx; ">已作废</text>
+    
     </view>
   </view>
 
   <view class="item-row">
-    <view class="item-col" style="flex:13; background:#FFC800;  ">
+    <view class="item-col" style=" background:#FFC800;  ">
       仓库:
       <text class="textbox">{{ckmc}}</text>
+  </view>    
+  </view>  
+
+  <view class="item-row">
+    <view class="item-col" style="background:#FFC800;  ">
+      开单:
+      <text class="textbox">{{xsrq}}</text>
     </view>
     <view class="item-col" style=" background:#FFC800;  ">
       有效:
@@ -57,11 +70,14 @@
       车牌:
       <text class="textbox">{{cphm}}</text>
     </view>
+  </view>
+  <view class="item-row">
     <view class="item-col">
       司机:
       <text class="textbox">{{sfr}}</text>
     </view>
   </view>
+
   <view class="item-row">
     <view class="item-col">
       开单:
@@ -80,4 +96,5 @@
   </view>
   <view style=" background:lightcoral  ;height:18rpx;">
   </view>
+  
 </template>

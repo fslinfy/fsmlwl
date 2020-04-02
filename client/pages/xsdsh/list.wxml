@@ -7,6 +7,9 @@
       <view class="list-item" wx:for="{{lists}}" wx:key="" catchtap="edit" data-obj="{{item}}">
         <template is="temp_loc_xsdmx" data="{{...item}}" />
       </view>
+    <view   hidden="{{lists.length>0}}" style="padding:30rpx;height:auto;text-align:center;color:red; background-color:white; " >
+    {{datamsg}}   
+  </view>
     </scroll-view>
   </view>
 

@@ -1,0 +1,16 @@
+<view class="container">
+  <view class="list_header_text">
+    <view class="item-row" style="height:30rpx;margin-top: -3rpx;">
+      <text>分类名称</text>
+      <view class="checkbox_icon checkbox_1_selected" style="width:60rpx;height:60rpx;margin-top: 8rpx;margin-right: 15rpx;" bindtap="add"  >+</view>
+    </view>
+  </view>
+  <view class="container-center">
+    <scroll-view scroll-y="true" style="height: 100%;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+      <view class="list-item" wx:for="{{lists}}" wx:key="" catchtap="edit" data-obj="{{item}}">
+            {{item.typename}}
+      </view>
+    </scroll-view>
+  </view>
+  <!--<icon type="success" size="50" class="post" bindtap="add"> </icon>-->
+</view>

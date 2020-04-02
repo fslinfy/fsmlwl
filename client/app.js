@@ -5,7 +5,7 @@ var config = require('./config')
 App({
   onLaunch: function () {
     // 展示本地存储能力
-    
+ 
     qcloud.setLoginUrl(config.service.loginUrl);
   
     var logs = wx.getStorageSync('logs') || []
@@ -74,7 +74,7 @@ App({
       success: function (res) {
         //console.log("openid res:", res);
         if (res.data.success){
-   
+         // console.log('openid',res.data.openid);
           wx.setStorageSync('current_openid', res.data.openid);
         }
       }
@@ -82,10 +82,11 @@ App({
   },
  
   globalData: {
+    config:config,
     servsers: config.service.host + "/weapp",
     userInfo: { userName: 'admin', userId: 1 },
     current_E_code: "1",
-    current_L_id:0 ,
+    current_l_id:0 ,
     current_ckmc:'',
     current_sysmc: '',
     current_edit: false,

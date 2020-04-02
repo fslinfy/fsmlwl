@@ -1,0 +1,51 @@
+<import src="../template/temp_calendar.wxml" />
+<view class="container">
+  <view class="container-right">
+    <view class="container-center">
+      <form bindsubmit="evaSubmit" report-submit='true'>
+        <view class="form_panel">
+          <view class="form_line">
+            <text>日期:</text>
+            <input type="text" name="rq1" value="{{rq1}}" disabled='true' style="font-size: 36rpx;" bindtap="bindDateChange"> </input>
+            <text>至:</text>
+            <input type="text" name="rq2" value="{{rq2}}" style="font-size: 36rpx;" disabled='true' bindtap="bindDateChange1"></input>
+            <button formType="submit" type="primary" style="height:60rpx; width:120rpx;  font-size: 28rpx;">查询</button>
+          </view>
+        </view>
+      </form>
+
+      <view class="list_header">
+      </view>
+      <scroll-view scroll-y="true" style="height: 100%;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+
+
+        <view class="list_header_text">
+          <view class="item-row">
+            <text style="text-align:left;width:60%;margin-top:-3rpx; ">客户名称</text>
+            <text style="text-align:right;width:20%;margin-top:-3rpx; ">数量</text>
+            <text style="text-align:center;width:20%;margin-top:-3rpx; ">重量</text>
+          </view>
+        </view>
+        <view class="list-item" wx:for="{{lists}}" wx:key="" data-obj="{{item}}" catchtap="edit" data-startdate="{{rq1}}" data-enddate="{{rq2}}">
+          <view class="item-row">
+            <view style="width:60%;"> {{item.khjc}} </view>
+            <view style="width:20%;"> {{item.ccsl}} </view>
+            <view style="width:20%;"> {{item.cczl}} </view>
+          </view>
+        </view>
+        <view class="list_header_text" hidden="{{sumsl==0}}">
+          <view class="item-row" style="height:60rpx;font-size:34rpx;  background: beige;">
+            <text style='text-align:left;'>合计数量：{{sumsl}}</text>
+            <text>重量：{{sumzl}}</text>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+</view>
+
+<!-- get date  -->
+
+<view class="shade" style="padding-left:20%;" hidden="{{datedata.calendarHidden}}">
+  <template is="temp_calendar" data="{{...datedata}}" />
+</view>

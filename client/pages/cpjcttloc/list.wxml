@@ -2,37 +2,38 @@
 <view class="container">
   <view class="container-right">
     <view class="container-center">
+      <form bindsubmit="evaSubmit" report-submit='true'>
+        <view class="form_panel">
+          <view class="form_line">
+            <view style="width:120rpx; ">
+              <input type="text" name="year" value="{{year}}" style="margin-left:10rpx;"></input>
+            </view>
+            <text>年</text>
+            <view style="width:60rpx; ">
+              <input type="text" name="month" value="{{month}}" disabled='true' style="margin-left:0rpx;text-align:right;" bindtap="bindmonthSelect"></input>
+            </view>
+            <text>月</text>
+            <view style="width:60rpx; ">
+              <input type="text" name="day" value="{{day}}" style="margin-left:0rpx;text-align:right;"></input>
+            </view>
+            <text>日</text>
+            <view class="list-item-select" style="margin-left:20rpx;width:250rpx;margin-top:0rpx;" bindtap="selectcpwzBtn">
+              <view class="checkbox_group" style="width:70rpx;margin-top:-10rpx;">
+                <view class="checkbox_icon checkbox_1_selected" style="margin-top:0rpx;" wx:if="{{cpwz!=1 }}"> </view>
+                <view class="checkbox_icon checkbox_1_selected" style="margin-top:0rpx;" wx:if="{{cpwz==1}}">√</view>
+              </view>
+              <text style="font-size:32rpx;width:220rpx;margin-top:5rpx;">按商品统计</text>
+            </view>
+            <button formType="submit" class="weui-btn mini-btn" type="primary" style="width:130rpx;font-size: 30rpx;margin:0rpx 5rpx 3rpx 0rpx;	text-align: center;">查询</button>
+          </view>
+        </view>
+      </form>
+
+      <view class="list_header">
+      </view>
       <scroll-view scroll-y="true" style="height: 100%;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
 
-        <form bindsubmit="evaSubmit" report-submit='true'>
-          <view class="form_panel">
-            <view class="form_line">
-              <view style="width:120rpx; ">
-                <input type="text" name="year" value="{{year}}" style="margin-left:10rpx;"></input>
-              </view>
-              <text>年</text>
-              <view style="width:60rpx; ">
-                <input type="text" name="month" value="{{month}}" disabled='true' style="margin-left:0rpx;text-align:right;" bindtap="bindmonthSelect"></input>
-              </view>
-              <text>月</text>
-              <view style="width:60rpx; ">
-                <input type="text" name="day" value="{{day}}" style="margin-left:0rpx;text-align:right;"></input>
-              </view>
-              <text>日</text>
-              <view class="list-item-select" style="margin-left:20rpx;width:250rpx;margin-top:0rpx;" bindtap="selectcpwzBtn">
-                <view class="checkbox_group" style="width:70rpx;margin-top:-5rpx;">
-                  <view class="checkbox_icon checkbox_1_selected" style="margin-top:0rpx;" wx:if="{{cpwz!=1 }}"> </view>
-                  <view class="checkbox_icon checkbox_1_selected" style="margin-top:0rpx;" wx:if="{{cpwz==1}}">√</view>
-                </view>
-                <text style="font-size:32rpx;width:220rpx;">按商品统计</text>
-              </view>
-              <button formType="submit" class="weui-btn mini-btn" type="primary" style="width:130rpx;font-size: 30rpx;margin:0rpx 5rpx 3rpx 0rpx;	text-align: center;">查询</button>
-            </view>
-          </view>
-        </form>
 
-        <view class="list_header">
-        </view>
         <view class="list_header_text">
           <view class="item-row" style="height:60rpx;  background: #fcd33d ;">
             <text style="text-align:left;width:60%;margin-top:-3rpx; " hidden="{{cpwz}}">客户名称</text>

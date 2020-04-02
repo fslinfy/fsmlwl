@@ -4,28 +4,28 @@ var utils = require('../../utils/util');
 var Api = require("../../utils/api.js");
 var select = require("../../utils/selectName.js");
 
-var callBackQuery = function (res, that) {
+var callBackQuery = function(res, that) {
   var cpkc = res.data.cpkc;
-  var khmclist=new Array();
-  var khidstr=","
-  cpkc.forEach(function (item1, index1) {
-    item1.forEach(function (item2, index2) {
+  var khmclist = new Array();
+  var khidstr = ","
+  cpkc.forEach(function(item1, index1) {
+    item1.forEach(function(item2, index2) {
       item2.sl = Api.slrenderer(item2.sl);
       item2.zl = Api.slrenderer(item2.zl);
       item2.kdsl = Api.slrenderer(item2.kdsl);
       item2.kdzl = Api.slrenderer(item2.kdzl);
       item2.kcsl = Api.slrenderer(item2.kcsl);
       item2.kczl = Api.slrenderer(item2.kczl);
-      if (khidstr.indexOf(item2.khid)<1)
-      {
-        var o = { 'Id': item2.khid, 'Name': item2.khmc};
-           khmclist.push(o);
-           khidstr = khidstr + "," + item2.khid;
+      if (khidstr.indexOf(item2.khid) < 1) {
+        var o = {
+          'Id': item2.khid,
+          'Name': item2.khmc
+        };
+        khmclist.push(o);
+        khidstr = khidstr + "," + item2.khid;
       }
     })
   })
-
-
   that.setData({
     menus: res.data.ck,
     cpkc: cpkc,
@@ -33,31 +33,31 @@ var callBackQuery = function (res, that) {
     curkhid: getApp().globalData.current_khid,
     curckid: getApp().globalData.current_l_id,
     activeBar: false,
-    
     hiddenBoolean: true,
-    options: { hiddenSelectWindow: true },
-    datedata: { calendarHidden: true }
+    options: {
+      hiddenSelectWindow: true
+    },
+    datedata: {
+      calendarHidden: true
+    }
   })
 
   that.topBarInit();
   wx.hideLoading();
-if (!that.data.khmclist){
-  if (getApp().globalData.current_khid==0)
-  {
-    that.setData({
-       khmclist:khmclist
-     })
+  if (!that.data.khmclist) {
+    if (getApp().globalData.current_khid == 0) {
+      that.setData({
+        khmclist: khmclist
+      })
+    }
   }
-}
-
-  
 
 
 };
-var callBackkhmcQuery = function (res, that) {
- // that.setData({
-//    khmclist: res.data.rows
- // })
+var callBackkhmcQuery = function(res, that) {
+  // that.setData({
+  //    khmclist: res.data.rows
+  // })
 };
 Page({
   data: {
@@ -72,12 +72,17 @@ Page({
     curckid: getApp().globalData.current_l_id,
     activeBar: true,
     hidden: true,
-    options: { hiddenSelectWindow: true },
-    datedata: { calendarHidden: true }
+    options: {
+      hiddenSelectWindow: true
+    },
+    datedata: {
+      calendarHidden: true
+    }
   },
-  onLoad: function () {
-    
-    
+  onLoad: function() {
+
+
+ 
     this.setData({
       userlogin: getApp().globalData.userlogin
     })
@@ -96,7 +101,7 @@ Page({
 
   },
 
-  add: function () {
+  add: function() {
     var that = this;
     var tid = that.data.curleftNav;
 
@@ -106,29 +111,29 @@ Page({
       url: url
     });
   },
-  evaSubmit: function (e) {
+  evaSubmit: function(e) {
     if (!Api.checkTime()) return;
-      Api.saveFormId(e.detail.formId, wx.getStorageSync('current_openid'));
-    
+    Api.saveFormId(e.detail.formId, wx.getStorageSync('current_openid'));
+
     this.fetchData();
   },
 
 
-  bindfilter: function (e) {
-    var that=this;
+  bindfilter: function(e) {
+    var that = this;
     var s = e.detail.value;
-    
+
     var cpkc0 = that.data.cpkc0;
 
     var newlist = [];
-    var  sumsl = 0;
+    var sumsl = 0;
     var sumzl = 0;
     var cpkc = [];
-    cpkc0.forEach(function (item1, index1) {
+    cpkc0.forEach(function(item1, index1) {
       newlist = [];
       sumsl = 0;
       sumzl = 0;
-      item1.forEach(function (item2, index2) {
+      item1.forEach(function(item2, index2) {
         if (((item2.cpmc).indexOf(s) > -1) || ((item2.cdmc).indexOf(s) > -1) || ((item2.bzmc).indexOf(s) > -1) || ((item2.cpph).indexOf(s) > -1)) {
           item2.sl = Api.slrenderer(item2.sl);
           item2.zl = Api.slrenderer(item2.zl);
@@ -142,9 +147,8 @@ Page({
         }
       })
       cpkc.push(newlist);
-      
-      if (index1 == that.data.activeBarIndex)
-      {
+
+      if (index1 == that.data.activeBarIndex) {
         that.setData({
           sumkcsl: Api.slrenderer(sumsl),
           sumkczl: Api.slrenderer(sumzl)
@@ -159,7 +163,7 @@ Page({
 
 
   },
-  edit: function (e) {
+  edit: function(e) {
     var that = this;
     var obj = e.currentTarget.dataset.obj;
     if (obj.S_id == undefined) return;
@@ -169,35 +173,33 @@ Page({
       url: url
     })
   },
-  fetchData: function () {
+  fetchData: function() {
     //if (!getApp().globalData.userlogin) return;
-   
+
     wx.showLoading({
       title: 'loading...',
     })
 
     var that = this;
-    Api.queryData(this,
-      {
-        act: "cpkcmenulist",
-        khid:that.data.khid,
-        ckid:getApp().globalData.current_l_id,
-        active: 1
-      }, callBackQuery
-    );
+    Api.queryData(this, {
+      act: "cpkcmenulist",
+      khid: that.data.khid,
+      ckid: getApp().globalData.current_l_id,
+      active: 1
+    }, callBackQuery);
   },
 
 
 
 
-  onShow: function () {
-    
-    Api.checkTime(); 
+  onShow: function() {
+
+    Api.checkTime();
     this.setData({
       userlogin: getApp().globalData.userlogin
     })
 
-    
+
     if (!getApp().globalData.userlogin) {
       wx.navigateTo({
         url: "../index/index"
@@ -208,7 +210,7 @@ Page({
     this.fetchData();
   },
 
-  topBarInit: function () {
+  topBarInit: function() {
 
     var vm = this;
     var obj = vm.data.topBarMenu;
@@ -219,8 +221,7 @@ Page({
       vm.setData({
         topBarMenu: obj
       });
-    }
-    else {
+    } else {
       obj = {};
       obj["activeBarIndex"] = 0;
       obj["menus"] = vm.data.menus;
@@ -245,8 +246,8 @@ Page({
 
   },
 
-  changeTopBar: function (e) {
-    Api.checkTime(); 
+  changeTopBar: function(e) {
+    Api.checkTime();
     var vm = this;
     var index = e.currentTarget.dataset.index;
     var obj = vm.data.topBarMenu;
@@ -257,7 +258,7 @@ Page({
       activeBarIndex: index,
       barMenu: e.currentTarget.dataset.menu,
       activeTabIndex: 0,
-      cpkc:vm.data.cpkc0,
+      cpkc: vm.data.cpkc0,
       sumkcsl: k.sumkcsl,
       sumkczl: k.sumkczl,
       search: '',
@@ -266,13 +267,13 @@ Page({
   },
 
 
-  bindkhmcSelect: function (e) {
-  
+  bindkhmcSelect: function(e) {
+
     var that = this;
     var list = that.data.khmclist;
-    
-    
-    
+
+
+
     var obj = {};
     obj["selectTitle"] = "选择客户名称";
     obj["nameList"] = list;
@@ -280,14 +281,14 @@ Page({
       selectType: "khmc"
     });
     //console.log(obj);
-    select.showSelectWindow(that, obj,false);
-    
+    select.showSelectWindow(that, obj, false);
+
   },
-  selectCancelBtn: function (e) {
+  selectCancelBtn: function(e) {
     select.hiddenSelectWindow(this);
 
   },
-  selectBtn: function (e) {
+  selectBtn: function(e) {
     var that = this;
     var id = e.currentTarget.dataset.id;
     var index = e.currentTarget.dataset.index;

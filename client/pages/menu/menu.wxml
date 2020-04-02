@@ -1,13 +1,24 @@
 <view class="container">
-  <view class="list_header_text">
-  </view>
-  <view class="container-center">
-    <view class="container-right">
-      <scroll-view scroll-y="true" style="height: 100%;" wx:if="{{userlogin}}" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
-        <view class="list-item" wx:for="{{menu[curIndex]}}" wx:key="" catchtap="edit" data-obj="{{item}}" style="font-size:42rpx;">
-          {{item.Name}}
+  <view class="container-right">
+   <!-- <view class="list_header_text">
+    </view>-->
+    <view class="container-center" hidden="{{!userlogin}}">
+      <scroll-view scroll-y="true" style="height: 100%;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+        <view wx:for="{{menu}}" wx:key="">
+          <template is="temp_menu" data="{{...item}}" />
         </view>
       </scroll-view>
     </view>
   </view>
 </view>
+
+<template name="temp_menu">
+  <view class="list_header_text" style="font-size: 30rpx;height:50rpx;text-align:left;" >
+    {{Type}}
+  </view>
+  <view wx:for="{{submenu}}" style="height:auto;">
+    <view class="listitem" catchtap="edit" style="font-size: 42rpx;" data-obj="{{item}}">
+      {{item.Name}}
+    </view>
+  </view>
+</template>

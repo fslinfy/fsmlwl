@@ -12,7 +12,9 @@ var enddate = ((new Date()).toISOString()).substring(0, 10);
 var khid = 0;
 var callBackQuery = function (res, that) {
   var obj = res.data.rows;
+  var datamsg =" 没有单据待审核！";
   obj.forEach(function (item, index) {
+    datamsg='';
     item['cnote'] = Api.field_decode(item.cnote);
     var ckdmx = item.ckdmx;
 
@@ -23,7 +25,7 @@ var callBackQuery = function (res, that) {
     item['ckdmx'] = ckdmx;
   });
   that.setData({
-    lists: obj
+    lists: obj,datamsg:datamsg
   })
   wx.hideLoading();
 };
@@ -34,7 +36,7 @@ var callBackkhmcQuery = function (res, that) {
 };
 Page({
   data: {
-    hidden: true,
+    hidden: true, datamsg: '',
     rq1: startdate,
     rq2: enddate,
     curkhid: getApp().globalData.current_khid,

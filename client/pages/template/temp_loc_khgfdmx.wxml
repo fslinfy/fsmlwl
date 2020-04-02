@@ -1,0 +1,87 @@
+
+<template name="temp_loc_khgfdmx">
+<view catchtap="edit" data-id="{{gfid}}">
+  <view class="item-row" catchtap="edit" >
+    <view class="item-col" style="flex:13; background:#FFC800;  ">
+      单号:
+      <text class="textbox">{{gfdh}}</text>
+      <view hidden="{{delbz==0}}">
+        <text style="color:red;">已作废</text>
+      </view>
+    </view>
+    <view class="item-col" style="background:#FFC800;  ">
+      日期:
+      <text class="textbox">{{kdrq}}</text>
+    </view>
+  </view>
+
+  <view class="item-row">
+    <view class="item-col" style="flex:12; background:#FFC800;  " wx:if="{{kh>0}}">
+      仓库:
+      <text class="textbox">{{ckmc}}</text>
+    </view>
+    <view class="item-col" style=" background:#FFC800;" wx:if="{{kh==0}}">
+      客户:
+      <text class="textbox">{{khmc}}</text>
+    </view>
+  </view>
+  <view class="list-item-mx" wx:for="{{gfdmx}}" style="height:auto;">
+    <view wx:if="{{item.jeid==0}}">
+      <view class="form_line">
+        <text >商品:</text>
+        <text class="textbox">{{item.xmmc}}</text>
+      </view>
+
+      <view class="form_line">
+        <text >产地:</text>
+        <text class="textbox">{{item.cdmc}}</text>
+
+      </view>
+      <view class="form_line">
+        <text >规格:</text>
+        <text class="textbox">{{item.bzmc}}</text>
+      </view>
+      <view class="form_line">
+        <text >数量:</text>
+        <text class="textbox" style="text-align:center;">{{item.khsl}}</text>
+        
+        <text style=" margin-left:20rpx;text-align:right; "> 重量(吨):</text>
+        <text class="textbox" style="text-align:center;">{{item.khzl}}</text>
+      </view>
+
+
+    </view>
+  </view>
+  <view class="item-row">
+    <view class="item-col">
+      车牌:
+      <text class="textbox">{{cphm}}</text>
+    </view>
+  </view>
+  <view class="item-row">
+    <view class="item-col">
+      司机:
+      <text class="textbox">{{sfr}}</text>
+    </view>
+  </view>
+
+  <view class="item-row">
+    <view class="item-col">
+      开单:
+      <text class="textbox">{{khczy}}</text>
+    </view>
+    <view class="item-col">
+      审核:
+      <text class="textbox">{{khshr}}</text>
+    </view>
+  </view>
+  <view class="item-row" hidden="{{act==1}}">
+    <view class="item-col">
+      备注:
+      <text class="textbox" style="height:auto;margin: 5rpx 5rpx 5rpx 10rpx;  background-color: #eee; font-size:36rpx; ">{{cnote}}</text>
+    </view>
+  </view>
+  <view style=" background:lightcoral  ;height:18rpx;" hidden="{{act==1}}">
+  </view>
+  </view>
+</template>

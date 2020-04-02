@@ -10,7 +10,7 @@ var select = require("../../utils/selectName.js");
 
 var timestamp = Date.parse(new Date()) / 1000;
 //加一天的时间：  
-var n_to = 1000 * (timestamp - 24 * 60 * 60 * 7);
+var n_to = 1000 * (timestamp - 24 * 60 * 60 * 100);
 var startdate = ((new Date(n_to)).toISOString()).substring(0, 10);
 var enddate = ((new Date()).toISOString()).substring(0, 10);
 var ckid=0;
@@ -18,13 +18,14 @@ var ckid=0;
 
 var callBackQuery = function (res, that) {
   var obj = res.data.rows;
+  var datamsg ='没有符合的内容！ ';
   obj.forEach(function (item, index) {
    // item['cnote'] = item.cnote.split('&~~').join('\n');
     item['cnote'] = Api.field_decode(item.cnote);
-   // item['sfr'] = Api.field_decode(item.sfr);
-   // item['cphm'] = Api.field_decode(item.cphm);
+    item['sfr'] = Api.field_decode(item.sfr);
+    item['cphm'] = Api.field_decode(item.cphm);
     var xsdmx = item.xsdmx;
-
+    datamsg='';
     xsdmx.forEach(function (item2, index2) {
       item2.xssl = Api.slrenderer(item2.xssl);
       item2.xszl = Api.slrenderer(item2.xszl);
@@ -32,7 +33,7 @@ var callBackQuery = function (res, that) {
     item['xsdmx'] = xsdmx;
   });
   that.setData({
-    lists: obj
+    lists: obj,datamsg:datamsg
   })
   wx.hideLoading();
 };
@@ -48,7 +49,7 @@ var callBackkhmcQuery = function (res, that) {
 };
 Page({
   data: {
-    hidden: true,
+    hidden: true, datamsg: '',
     rq1: startdate,
     rq2: enddate,
     ckmc:'',
@@ -68,6 +69,7 @@ Page({
     if (obj.id == undefined) return;
     var objstr = JSON.stringify(obj);
     var url = '../xsdsh/edit/edit?act=1&obj=' + objstr;
+   // url = '../xsdview/edit?level=1&id='+obj.id;
     wx.navigateTo({
       url: url
     })
@@ -153,22 +155,7 @@ Page({
     calendar.nextMonth();
   },
   selectDate: function (e) {
-    var vm = this;
-    var obj = vm.data.datedata;
-    obj["calendarHidden"] = true;
-    if (vm.data.selectdate == 1) {
-      vm.setData({
-        rq1: e.currentTarget.dataset.date.value,
-        datedata: obj
-      });
-
-    }
-    else {
-      vm.setData({
-        rq2: e.currentTarget.dataset.date.value,
-        datedata: obj
-      });
-    }
+    calendar.selectDate(e, this);
   },
   CancelSelect: function (e) {
     var vm = this;

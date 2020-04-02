@@ -1,9 +1,5 @@
 @import "../../../style/cpxsdedit.wxss";
-
 .item-row {
- 
   background-color: white ;
-
-  
 }
 

@@ -60,7 +60,7 @@
                 <text>{{item.kcsl}}</text>
               </view>
               <view class="kcsl">
-                <text class="text-red">{{item.kdsl}}</text>
+                <text  class="text-kdsl">{{item.kdsl}}</text>
               </view>
             </view>
             <view class="kcsl_box">
@@ -68,7 +68,7 @@
                 <text>{{item.kczl}}</text>
               </view>
               <view class="kcsl">
-                <text class="text-red">{{item.kdzl}}</text>
+                <text class="text-kdsl">{{item.kdzl}}</text>
               </view>
             </view>
           </view>

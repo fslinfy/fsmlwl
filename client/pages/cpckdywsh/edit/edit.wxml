@@ -22,10 +22,10 @@
       <view class="delete_line">
         <view class="form_line_header" bindtap="delete" style="margin-left:30rpx;width:60%;" wx:if="{{obj.delbz==0}}">
           <image src="../../../images/icon_delete.png" style="height:70rpx;width:70rpx;" />
-          <text>作废此提单</text>
+          <text>作废此出仓单</text>
         </view>
         <view class="form_line_header" wx:if="{{obj.delbz>0}}">
-          <text style="color:red;">此提单已经作废</text>
+          <text style="color:red;">此出仓单已经作废</text>
         </view>
       </view>
     </view>

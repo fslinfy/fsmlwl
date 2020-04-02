@@ -3,7 +3,6 @@ var fun_base64 = require('../../../utils/base64.js')
 var Api = require("../../../utils/api.js");
 var utils = require('../../../utils/util');
 var calendar = require("../../../utils/calendar.js");
-
 var select = require("../../../utils/selectName.js");
 var callBackQuery = function (res, that) {
 
@@ -12,25 +11,7 @@ var callBackQuery = function (res, that) {
   })
 
 };
-var callBackcpjkdmxQuery = function (res, that) {
 
-
-  var jkdmx = res.data.rows;
-  var sumsl = 0;
-  var sumzl = 0;
-  jkdmx.forEach(function (item2, index2) {
-    sumsl = sumsl + parseFloat(item2.xssl);
-    sumzl = sumzl + parseFloat(item2.xszl);
-    item2.xssl = Api.slrenderer(item2.xssl);
-    item2.xszl = Api.slrenderer(item2.xszl);
-  })
-  that.setData({
-    jkdmx: jkdmx,
-    sumsl: sumsl,
-    sumzl: sumzl.toFixed(3)
-  })
-
-};
 Page(
   {
     data: {
@@ -42,6 +23,7 @@ Page(
       multipleChoice: true,
       hiddenSelectWindow: true,
       calendarHidden: true,
+      options: { hiddenSelectWindow: true },
       datedata: { calendarHidden: true }
     },
     checkboxChange: function (a) {
@@ -215,6 +197,7 @@ Page(
               data: {
                 act: "cpjkdshsave",
                 options: "delete",
+                shbz:that.data.shbz,
                 jkid: obj.jkid,
                 shr: getApp().globalData.current_username
               },
@@ -444,12 +427,5 @@ Page(
           active: 1
         }, callBackQuery
       );
-      /* Api.queryData(that,
-         {
-           act: "cpjkdmxloc",
-           xsid: xsid
-         },
-         callBackcpjkdmxQuery
-       );*/
     }
   })

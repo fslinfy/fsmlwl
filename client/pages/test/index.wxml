@@ -1,0 +1,38 @@
+<!-- index.wxml -->
+  <scroll-view class="list" style='' scroll-y="true" bindscrolltolower="reachPageBottom" bindscrolltoupper="reachPageTop" bindscroll="onListScroll"  enable-back-to-top="true" upper-threshold='100' lower-threshold="100" scroll-top="{{scrollTo}}">
+   <!-- 循环分页 -->
+    <view  wx:for="{{list}}" wx:for-item="subList" wx:for-index="page" id="listpage-{{page}}" wx:key="listpage"  >
+     {{page}}
+     <!-- 判断页面状态 -->
+      <block wx:if="{{page - currentPage >= -1 && page - currentPage <= 1}}" >
+       <!-- item渲染 -->
+        <template is="listitem" wx:for="{{subList}}" data="{{item:item, page,index}}" />
+      </block>
+      <view wx:else style='height:{{pageFrame[page].height}}px;' ></view>
+    </view>
+<!--
+    <view class="list-end" wx:if="{{listLength > 0}}">
+        <view class='line'></view>
+         
+        <text wx:if="{{pageEnd}}">以上共{{listLength || 0}}个数据</text>
+        <button wx:else loading="true"
+        disabled="true" bindtap="empty" class="button-noborder" style='font-size: 26rpx; background-color:transparent' >正在加载更多...</button>
+        <view class='line'></view>
+    </view>-->
+
+  </scroll-view>
+ 
+  <template name="listitem">
+  <view class='listitem' bindtap='listItemTap' data-item='{{item}}' >
+      <view>{{item.name}}</view>
+      <view>{{item.desc}}</view>
+      <view>{{item.content}}</view>
+      <view>{{page}}</view>
+      <!-- 循环100个节点 
+      <text>{{page}}--循环100个节点 </text>
+      
+      <text wx:for="{{1}}" wx:for-index='i' >{{index}}</text>
+      -->
+ 
+  </view>
+  </template>

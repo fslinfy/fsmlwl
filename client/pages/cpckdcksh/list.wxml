@@ -3,17 +3,25 @@
 <view class="container">
   <view class="container-right">
     <view class="container-center">
-      <scroll-view scroll-y="true" style="height: 100%;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
-        <view class="list_header" style="height:80rpx;  font-size: 28rpx;">
-          <view class="form_line" style="height:80rpx;">
+      <form report-submit='true'>
+        <view class="search_panel">
+          <view class="form_line" style="height:80rpx; ">
             <text style="margin-top:15rpx;">客户:</text>
-            <input type="text" disabled='true' style="height:70rpx;margin:5rpx 10rpx 0px 0rpx; " name="khmc" bindtap="bindkhmcSelect" value="{{khmc}}"></input>          </view>
+            <input type="text" disabled='true' style="height:70rpx;margin:5rpx 10rpx 0px 0rpx; " name="khmc" bindtap="bindkhmcSelect" value="{{khmc}}"></input>
+          </view>
         </view>
+      </form>
+   
+      <scroll-view scroll-y="true" style="height: 100%;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+         
         <view class="list_header">
         </view>
         <view class="list-item" wx:for="{{lists}}" wx:key="" catchtap="edit" data-obj="{{item}}">
           <template is="temp_loc_ckdmx" data="{{...item}}" />
         </view>
+        <view   hidden="{{lists.length>0}}" style="padding:30rpx;height:auto;text-align:center;color:red; background-color:white; " >
+       {{datamsg}} 
+  </view>
       </scroll-view>
     </view>
   </view>

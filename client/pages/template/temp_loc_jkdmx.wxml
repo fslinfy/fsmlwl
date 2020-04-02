@@ -10,7 +10,7 @@
     </view>
     <view class="item-col" style="background:#FFC800;  ">
       入库:
-      <text class="textbox">{{jkrq}}</text>
+      <text class="textbox">{{czrq}}</text>
     </view>
   </view>
 
@@ -96,11 +96,14 @@
       送货车牌:
       <text class="textbox">{{cphm}}</text>
     </view>
+  </view>
+  <view class="item-row">
     <view class="item-col">
       送货司机:
       <text class="textbox">{{sfr}}</text>
     </view>
   </view>
+
   <view class="item-row">
     <view class="item-col">
       开单:

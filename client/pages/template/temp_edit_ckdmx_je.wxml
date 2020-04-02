@@ -1,0 +1,46 @@
+
+<template name="temp_edit_ckdmx_je">
+<view style='pading:20rpx;background:bisque; '>
+      <view class="form_line" style='background:bisque; '>
+       <!-- <text style='background:#ccc; ' >作业:</text>-->
+        <view class="checkbox_icon checkbox_1_selected" bindtap="binddeleteSelect" style="width:60rpx;height:60rpx;margin-right:20rpx;" data-jeid="{{jeid}}"  data-msg="{{work}}" data-mxid="{{mxid}}"  >-</view>
+
+        <text class="textbox" style='background:powberblue; ' >{{work}}</text>
+
+          <view  style='width:300rpx;display: flex; flex-direction: row;  ' bindtap="checkboxChange" data-jeid="{{jeid}}" data-mxid="{{mxid}}"  >
+            <text  style='margin-top:5rpx;' >付现</text>
+            <view  style='height:50rpx;' > 
+                  <checkbox value="1" checked="{{xjbz>0}}"  style='margin-top:-30rpx;'  />
+            </view>  
+          </view>
+
+      </view>
+      <view class="form_line"  style="height:66rpx;background:bisque;" >
+        <text >数量:</text>
+ <!--       <text class="textbox" style="text-align:center;">{{sl}}</text>-->
+ <input type="digit" value="{{sl}}" style="font-size:40rpx;text-align:center;height:60rpx;margin-right:5rpx;margin-left:3rpx;"  data-jeid="{{jeid}}"  data-mxid="{{mxid}}"  data-inlb="sl" bindblur="bindInputjesl"></input>
+
+        <text >({{dw}}) 单价:</text>
+        <!--<text class="textbox" style="text-align:center;">{{dj}}</text>-->
+<input type="digit" value="{{dj}}"  style="font-size:40rpx;text-align:center;height:60rpx;margin-right:5rpx;margin-left:3rpx;" data-jeid="{{jeid}}" data-mxid="{{mxid}}" data-inlb="dj"   bindblur="bindInputjesl"></input>
+        <text style=" margin-left:20rpx;text-align:right; ">金额:</text>
+        <text class="textbox" style="text-align:center;">{{je}}</text>
+      </view>
+<!--
+      <view class="form_line">
+        <text >搬运:</text>
+        <text class="textbox">{{byg}}</text>
+        <view class="checkbox_icon checkbox_0_selected" bindtap="bindbygSelect" style="width:60rpx;height:60rpx;margin-right:20rpx;" data-index="{{index}}"  data-mxid="{{mxid}}"  >...</view>
+      </view>
+      <view class="form_line">
+        <text >叉车:</text>
+        <text class="textbox">{{gs}}</text>
+        <view class="checkbox_icon checkbox_0_selected" bindtap="bindgsSelect" style="width:60rpx;height:60rpx;margin-right:20rpx;" data-index="{{index}}"  data-mxid="{{mxid}}">...</view>
+      </view>
+      <view class="form_line">
+        <text >仓管:</text>
+        <text class="textbox">{{cg}}</text>
+        <view class="checkbox_icon checkbox_0_selected" bindtap="bindcgSelect" style="width:60rpx;height:60rpx;margin-right:20rpx;" data-index="{{index}}"  data-mxid="{{mxid}}">...</view>
+      </view>-->
+      </view>
+</template>

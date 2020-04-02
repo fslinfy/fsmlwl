@@ -1,45 +1,75 @@
 <import src="../template/temp_display_xsdmx.wxml" />
 <view class="container">
-  <view class="container-right">
-    <scroll-view scroll-y="true" style="height: 100%;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
-      <!-- <canvas style="width: 150px; height: 150px;" canvas-id="myQrcode"></canvas> -->
-      <view class="form_panel_col" style="height:180rpx;">
+  <!--  
+  <scroll-view scroll-y="true" style="height: 100%;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+    
+    <canvas style="width: 300rpx; height: 100rpx;" canvas-id="myQrcode"></canvas> -->
+  <view style=" height:auto; ">
+    <view class="list-item" style="  display: flex;  flex-direction: row;">
+      <view class="form_panel_col" style="width:65%;">
         <view class="form_line_header">
-          <text>提货单号:</text>
-          <text class="textbox" style="margin-right:15rpx;">{{xsd.xsdh}}</text>
+          <text>单号:</text>
+          <text class="textbox">{{xsd.xsdh}}</text>
         </view>
         <view class="form_line_header">
-          <text>提货仓库:</text>
-          <text class="textbox" style="margin-right:15rpx;">{{xsd.ckmc}} </text>
+          <text>仓库:</text>
+          <text class="textbox">{{xsd.ckmc}} </text>
         </view>
         <view class="form_line_header">
-          <text>开单日期:</text>
+          <text>开单:</text>
           <text class="textbox">{{xsd.xsrq}}</text>
-          <text>有效期:</text>
-          <text class="textbox" style="margin-right:15rpx;">{{xsd.endrq}}  </text>
+        </view>
+        <view class="form_line_header">
+          <text>有效:</text>
+          <text class="textbox">{{xsd.endrq}}  </text>
         </view>
       </view>
-      <view class="list_header" style="margin-top:5rpx;height:5rpx; background-color: #ccc; ">
+      <view class="form_panel_col" style="width:40%;background:#fff;">
+        <view class="img-box" hidden="{{!fhbz}}" style="color:red;">
+          {{fhmsg}}
+        </view>
+        <view class="img-box" hidden="{{fhbz}}">
+          <image bindtap="previewImg" mode="scaleToFill" src="{{imagePath}}"></image>
+        </view>
       </view>
-      <view class="list-item" wx:for="{{xsd.xsdmx}}" style="height:auto;" data-obj="{{item}}">
-        <template is="temp_display_xsdmx" data="{{...item}}" />
-      </view>
-      <view class="list_header" style="margin-top:5rpx;height:5rpx; background-color: #ccc; ">
-      </view>
-      <view class="form_panel_col" style="margin-left:0rpx;height:auto;">
-        <view class="form_line_header " style="height:60rpx;margin: 0rpx 0rpx 0rpx 0rpx;">
-          <text>提货车牌</text>
-          <text class="textbox">{{xsd.cphm}}</text>
 
-          <text>提货司机</text>
-          <text class="textbox" style="margin-right:10rpx;">{{xsd.sfr}} </text>
-
-        </view>
-        <view class="form_line_header " style="flex:1;">
-          <text style="width:40rpx;">备  注</text>
-          <textarea value="{{xsd.cnote}}" placeholder="" auto-focus style="height:180rpx;margin: 15rpx 15rpx 5rpx 5rpx;  background-color: white;  " disabled="true" maxlength='254' name="cnote" />
-        </view>
+    </view>
+    <view class="list-item" wx:for="{{xsd.xsdmx}}" style="height:auto;" data-obj="{{item}}">
+      <template is="temp_display_xsdmx" data="{{...item}}" />
+    </view>
+    <view class="form_panel_col" style="margin-left:0rpx;height:auto;">
+      <view class="form_line_header " style="height:60rpx;margin: 0rpx 0rpx 0rpx 0rpx;">
+        <text>提货车牌:</text>
+        <text class="textbox">{{xsd.cphm}}</text>
+        <text>提货司机:</text>
+        <text class="textbox">{{xsd.sfr}} </text>
       </view>
-    </scroll-view>
+      <view class="form_line_header " style="height:180rpx;">
+        <text style="width:40rpx;">备  注</text>
+        <textarea value="{{xsd.cnote}}" placeholder="" auto-focus style="height:150rpx;margin: 15rpx 10rpx 5rpx 5rpx;  background-color: white;  " disabled="true" maxlength='254' name="cnote" />
+      </view>
+    </view>
+    <view class="form_line_header" style="padding:10rpx;align: right;flex:1;height:90rpx;" hidden="{{hiddenBoolean}}">
+     <view style="width:50%;" hidden="{{btnHidden}}">
+      <button open-type="share" type="primary" style="width:95%;">将提单转发给司机</button>
+      </view>
+      <button bindtap="bindcancel" type="primary" style="width:45%;">返回</button>
+    </view>
+<!--
+    <view class="img-box" style="width:600rpx;height:600rpx;">
+          <image bindtap="previewImg" mode="scaleToFill" src="{{imagePath}}"></image>
+</view>
+-->
+
   </view>
+
+     
+
+  <!-- </scroll-view>-->
+
+</view>
+<view hidden="{{maskHidden}}" class="mask"></view>
+
+<view class="canvas-box">
+  <canvas hidden="{{canvasHidden}}" style="width: 686rpx;height: 686rpx;background:#f1f1f1;" canvas-id="mycanvas" />
 </view>

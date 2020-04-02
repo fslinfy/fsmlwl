@@ -20,6 +20,7 @@ Page({
     wxloginmodel: false,
     wxlogin: false,
     username: '',
+    password:'',
     wxname: "",
     canIUse: wx.canIUse('button.open-type.getUserInfo')
   },
@@ -56,6 +57,7 @@ Page({
 
     var that = this;
     var khid = e.detail.value.khid;
+    if (khid=='') khid=0;
     var khmc = e.detail.value.khmc;
     if (that.data.cklogin)
     {
@@ -79,13 +81,14 @@ Page({
       })
       return
     }
-    var openid = "";
+    
+    var openid = wx.getStorageSync('current_openid');
     
     var nickname = wx.getStorageSync('current_nickName');
     if ((nickname == undefined) || (nickname == 'undefined')) {
       nickname = "";
     }
-
+    var guid = nickname;
     var url = getApp().globalData.servsers + "/checklogin";
     wx.request({
       url: url,
@@ -93,17 +96,21 @@ Page({
       data: {
         act: "sysuserlogin",
         khid: khid,
+        L_id: wx.getStorageSync('current_l_id'),
         username: userid,
+        userid: wx.getStorageSync('current_openid'),
+        guid:guid,
         openid: openid,
         password: e.detail.value.password,
         nickName: nickname
       },
       success: function (res) {
+
+
         var obj = res.data.data;
+        console.log(obj);
         if (obj.userid > 0) {
           var userInfo = {};
-
-
           if (obj.khid > 0) {
             wx.setStorageSync('current_ckid',0);
             getApp().globalData.current_l_id=0;
@@ -113,12 +120,14 @@ Page({
             wx.setStorageSync('current_sysmc', obj.khmc);
             getApp().globalData.current_sysmc = obj.khmc;
             wx.setStorageSync('current_cklogin',0);
+            wx.setStorageSync('current_lastdel', obj.lastdel);
           }
           else {
             wx.setStorageSync('current_cklogin', 0);
             wx.setStorageSync('current_khid', 0);
             wx.setStorageSync('current_khmc', '');
             wx.setStorageSync('current_khjc', '');
+            wx.setStorageSync('current_lastdel', obj.lastdel);
             wx.setStorageSync('current_lidstring', obj.lidstring);
 
             wx.request({
@@ -126,6 +135,11 @@ Page({
               header: { "Content-type": "text/html", "charset": "utf-8" },
               data: {
                 act: "getckmclist",
+                L_id: wx.getStorageSync('current_l_id'),
+                username: userid,
+                userid: wx.getStorageSync('current_openid'),
+                guid: guid,
+                openid: openid,
                 lidstring: obj.lidstring
 
               },
@@ -194,14 +208,24 @@ Page({
           getApp().globalData.current_sh = obj.sh;
           getApp().globalData.current_khmc = obj.khmc;
           getApp().globalData.current_khjc = obj.khjc;
-          getApp().globalData.current_khsystem = false;
+          
           getApp().globalData.current_del = obj.del;
           getApp().globalData.current_khid = wx.getStorageSync('current_khid');
           getApp().globalData.current_wxlogin = obj.wxlogin;
-          getApp().globalData.current_lastdel = obj.lastdel;
+          getApp().globalData.current_lastdel = wx.getStorageSync('current_lastdel');
+          
           if (obj.lastdel > 0) {
             getApp().globalData.current_del = 1;
           }
+          
+          /*if (wx.getStorageSync('current_khid')>0){
+             getApp().globalData.current_khsystem = true;
+             wx.setStorageSync('current_khsystem', true);
+          
+          }else{
+             getApp().globalData.current_khsystem = false;
+             wx.setStorageSync('current_khsystem', false);
+          }*/
           getApp().globalData.userlogin = true;
           that.setData({
             userid: wx.getStorageSync('current_userid'),
@@ -237,6 +261,10 @@ Page({
     })
   },
   onShow: function () {
+  // wx.setStorageSync('current_l_id', '');
+  //  wx.setStorageSync('current_khid', '');
+  //  getApp().globalData.current_khid = 0;;
+  //  getApp().globalData.current_l_id = 0;  
 
     this.fetchData();
 
@@ -249,9 +277,87 @@ Page({
 
     // }
   },
-  onLoad: function () {
-    this.fetchData();
+  onShareAppMessage: function () {
 
+    return {
+      title: '明联物流',
+      desc: '仓储管理微信小程序',
+      path: 'pages/login/index'
+    }
+  },
+  onLoad: function () {
+    /*
+    wx.scanCode({
+      success(res) {
+        console.log(res)
+      }
+    })
+    
+    wx.chooseAddress({
+      success(res) {
+        console.log(res.userName)
+        console.log(res.postalCode)
+        console.log(res.provinceName)
+        console.log(res.cityName)
+        console.log(res.countyName)
+        console.log(res.detailInfo)
+        console.log(res.nationalCode)
+        console.log(res.telNumber)
+      }
+    })
+
+    wx.openSetting({
+      success(res) {
+        console.log(res.authSetting,res)
+        // res.authSetting = {
+        //   "scope.userInfo": true,
+        //   "scope.userLocation": true
+        // }
+      }
+    })
+    
+    wx.login({
+      success(res) {
+        if (res.code) {
+         console.log("login res",res);
+        }
+        }
+        })
+
+
+    wx.getUserInfo({
+      success(res) {
+        const userInfo = res.userInfo
+        const nickName = userInfo.nickName
+        const avatarUrl = userInfo.avatarUrl
+        const gender = userInfo.gender // 性别 0：未知、1：男、2：女
+        const province = userInfo.province
+        const city = userInfo.city
+        const country = userInfo.country
+        console.log("userInfo", userInfo)
+      }
+    })
+
+*/
+          
+    wx.setStorageSync('current_l_id', '');
+ //   wx.setStorageSync('current_khid', '');
+ //   getApp().globalData.current_khid=0;;
+    getApp().globalData.current_l_id=0;  
+    
+    var host=config.service.host;
+    if (host.indexOf('fsminglian')<1)
+    {
+      console.log(config);
+      this.setData({
+        password:'888888'
+      })
+
+    }
+    this.fetchData();
+    wx.showShareMenu({
+      withShareTicket: true
+    });
     
   },
   fetchData: function () {

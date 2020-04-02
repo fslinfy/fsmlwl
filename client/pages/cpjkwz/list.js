@@ -14,15 +14,17 @@ var callBackQuery = function (res, that) {
   var sumsl=0;
   var sumzl=0;
   obj.forEach(function (item, index) {
-      item.jcsl = Api.slrenderer(item.jcsl);
-      item.jczl = Api.slrenderer(item.jczl);
-    sumsl = sumsl + item.jcsl;
-    sumzl = sumzl + item.jczl; 
+    sumsl = sumsl + Number(item.jcsl);
+    sumzl = sumzl + Number(item.jczl); 
+
+    item.jcsl = Api.slrenderer(Number(item.jcsl));
+    item.jczl = Api.slrenderer(Number(item.jczl));
   });
+
   that.setData({
     lists: obj,
-    sumsl:sumsl,
-    sumzl:sumzl
+    sumsl: Api.slrenderer(sumsl),
+    sumzl: Api.slrenderer(sumzl)
   })
   wx.hideLoading();
 };
@@ -61,7 +63,7 @@ Page({
     //if (obj.id == undefined) return;
 
     var objstr = JSON.stringify(obj);
-    var url = 'edit/edit?khid='+obj.khid+'&khjc='+obj.khjc  + "&rq1=" + e.currentTarget.dataset.rq1 + "&rq2=" + e.currentTarget.dataset.rq2;
+    var url = 'edit/edit?khid='+obj.khid+'&khjc='+obj.khjc  + "&startdate=" + e.currentTarget.dataset.startdate + "&enddate=" + e.currentTarget.dataset.enddate;
     wx.navigateTo({
       url: url
     })

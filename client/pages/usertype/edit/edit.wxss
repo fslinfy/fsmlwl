@@ -1,0 +1,13 @@
+
+@import "../../../style/cpxsdedit.wxss";
+.form_panel {
+  height: 100rpx;
+}
+.list-item1 {
+  height: 50rpx;
+  display: flex;
+  flex-direction: row;
+  background: #fff;
+  margin: 0rpx 1rpx 3rpx 1rpx;
+  padding: 15rpx;
+}

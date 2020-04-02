@@ -148,8 +148,12 @@ function _saveData(that, data, title) {
     content: title,
     success: function (res) {
       if (res.confirm) {
-        data["L_id"] = getApp().globalData.current_L_id;
+        data["L_id"] = getApp().globalData.current_l_id;
         data["E_code"] = getApp().globalData.current_E_code;
+        data["p_e_code"] = getApp().globalData.current_E_code;
+        data["userid"] = wx.getStorageSync('current_openid');
+        data["openid"] = wx.getStorageSync('current_openid');
+
         // wx.showLoading({
         //   title: 'save...',
         //  })
@@ -174,6 +178,7 @@ function _saveData(that, data, title) {
                 }
               })
             } else {
+              wx.hideLoading();
               wx.showToast({ title: "数据处理失败！", duration: 2000 });
             }
           }
@@ -210,8 +215,13 @@ function _queryData(that, data, callback) {
     hidden: false
   });
  //data["khid"] = getApp().globalData.current_khid;
-  //data["p_l_id"] = getApp().globalData.current_L_id;
+  data["L_id"] = getApp().globalData.current_l_id;
+  data["E_code"] = getApp().globalData.current_E_code;
   data["p_e_code"] = getApp().globalData.current_E_code;
+  data["userid"] = wx.getStorageSync('current_openid');
+  data["openid"] = wx.getStorageSync('current_openid');
+
+ //console.log(data);
   //wx.showLoading({
   //  title: 'loading...',
   //})
@@ -232,7 +242,7 @@ function _queryData(that, data, callback) {
     success: function (res) {
       // wx.hideLoading();
       //var res =  JSON.parse(res);
-
+     // console.log(res);
       if (res.data.success) {
         
         setTimeout(function () {
@@ -245,12 +255,16 @@ function _queryData(that, data, callback) {
       }
       else {
         that.setData({
-          hidden: true
+         hidden: true
         });
+        wx.hideLoading();
+        //console.log(res);
+        //var res =res;
+        //console.log(res.data.data.msg);
         wx.showModal({
           showCancel: false,
           title: '注意',
-          content: res.data,
+          content: res.data.data.msg,
           success: function (res) {
             wx.navigateBack({
               delta: 1
@@ -292,6 +306,7 @@ function _queryData(that, data, callback) {
   return null;
 }
 function _field_encode(strings) {
+  return this.cleanSpelChar(strings);
   var obj_base64 = new fun_base64.Base64();
   if (strings.length==0) return "";
   return "~"+obj_base64.encode(strings)+"~";
@@ -303,7 +318,6 @@ function _field_decode(strings) {
   if (strings.substr(0, 1) == "~" && strings.substr(strings.length-1, 1)=="~" )
   {
     strings=strings.substr(1,strings.length-2)
-   // return strings;
     return  obj_base64.decode(strings);          
   }
   return strings.split("&~~").join("\n");
@@ -401,7 +415,7 @@ function _checktime(ops) {
   return false;
 
 
-}
+};
 function _checkfield(str,msg) {
   if (str.indexOf("=") > -1) {
     wx.showModal({
@@ -427,7 +441,173 @@ function _checkfield(str,msg) {
     return false;
   }
   return true;
+};
+function _pageList(list,that) {
+  var splitArray = (arr, len) => {
+    var a_len = arr.length;
+    var result = [];
+    for (var i = 0; i < a_len; i += len) {
+      result.push(arr.slice(i, i + len));
+    }
+    return result;
+  }
+  var pagedList = splitArray(list, that.pageSize);
+  return pagedList;
+};
+function _reachPageBottom(that) {
+  if (that.inPageUpdate) {
+    return;
+  }
+  that.inPageUpdate = true;
+  if (that.currentPage < that.pagedList.length - 1) {
+    var self = that;
+    var currentPage = that.currentPage;
+    wx.createSelectorQuery().select('#listpage-' + that.currentPage).boundingClientRect(function (rect) {
+      if (currentPage > 0) {
+        rect.lastBottom = self.data.pageFrame[currentPage - 1].height + self.data.pageFrame[currentPage - 1].lastBottom
+      } else {
+        rect.lastBottom = 0;
+      }
+      self.setData({
+        [`pageFrame[${currentPage}]`]: rect
+      })
+    }).exec();
+
+    that.currentPage = that.currentPage + 1;
+    var nextPage = that.pagedList[that.currentPage];
+    var key = `list[${that.currentPage}]`
+    var data = {};
+    data[key] = nextPage;
+    data.currentPage = that.currentPage;
+    //  console.log(data);
+    that.setData(data, () => {
+      that.inPageUpdate = false;
+    });
+  } else {
+    that.setData({
+      pageEnd: true,
+    }, () => {
+      that.inPageUpdate = false;
+    })
+  }
+
+};
+function _pageListScroll(e,that) {
+  if (that.inPageUpdate) {
+
+    return;
+  }
+  //console.log("e", e, that.inPageUpdate, that.currentPage);
+
+  var {
+    scrollTop
+  } = e.detail;
+
+  if (that.currentPage > 0) {
+    var pageFrame = that.data.pageFrame[that.currentPage - 1];
+
+    if (pageFrame) {  //向后
+      var screenHeight = wx.getSystemInfoSync().screenHeight;
+      if ((scrollTop + screenHeight) - (pageFrame.lastBottom + pageFrame.height) < -200) {
+        that.inPageUpdate = true;
+        that.currentPage -= 1;
+        that.setData({
+          currentPage: that.currentPage,
+        },
+          () => {
+            that.inPageUpdate = false;
+          })
+        return;
+      }
+    }
+  }
+  var currentPageFrame = that.data.pageFrame[that.currentPage];
+  if (currentPageFrame) {
+    if (scrollTop - (currentPageFrame.lastBottom + currentPageFrame.height) > 200) {
+      that.inPageUpdate = true;
+      that.currentPage += 1;
+      that.setData({
+        currentPage: that.currentPage,
+      }, () => {
+        that.inPageUpdate = false;
+      })
+    }
+  }
+};
+
+function _querySqlData(that, data, callback) {
+
+  that.setData({
+    hidden: false
+  });
+  var obj_base64 = new fun_base64.Base64();
+  
+  data=obj_base64.encode(data);
+
+  wx.request({
+    url: getApp().globalData.servsers + "/mysqlwxaction",
+    sql: data,
+    header: {
+      'content-type': 'application/json' // 默认值
+    },
+    success: function (res) {
+      if (res.data.success) {
+        setTimeout(function () {
+          that.setData({
+            hidden: true
+          })
+        }, 300);
+        callback(res, that);
+        return;
+      }
+      else {
+        that.setData({
+          hidden: true
+        });
+        wx.hideLoading();
+        wx.showModal({
+          showCancel: false,
+          title: '注意',
+          content: res.data.data.msg,
+          success: function (res) {
+            wx.navigateBack({
+              delta: 1
+            })
+          }
+        });
+      }
+    },
+    fail: function (res) {
+      wx.hideLoading();
+      wx.showModal({
+        showCancel: false,
+        title: '注意fail',
+        content: res.data,
+        success: function (res) {
+          wx.navigateBack({
+            delta: 1
+          })
+        }
+      });
+    }
+  })
+  return null;
 }
+
+function _cleanSpelChar(localData) {
+  var noiseChar = "~!@#$%^&*()_+-=`[]{};':\"\\|,./<>?\n\r";
+  var goodChar = "～！＠＃＄％＾＆＊（）＿＋－＝｀［］｛｝；＇：＂＼｜，．／＜＞？　　";
+  for (var i = 0; i < noiseChar.length; i++) {
+    var oneChar = noiseChar.charAt(i);
+    var towChar = goodChar.charAt(i)
+    console.log('oneChar  ' + oneChar + '   towChar ' + towChar)
+    while (localData.indexOf(oneChar) >= 0) {
+      localData = localData.replace(oneChar, towChar)
+    }
+  }
+  return localData;
+}
+
 module.exports = {
   getAllNode: _getAllNode,
   getNodeInfo: _getNodeInfo,
@@ -441,6 +621,7 @@ module.exports = {
   saveData: _saveData,
   saveFormId: _saveFormId,
   queryData: _queryData,
+  querySqlData: _querySqlData,
   decrypt: _decrypt,
   encrypt: _encrypt,
   checkTime: _checktime,
@@ -448,5 +629,9 @@ module.exports = {
   slrenderer: _slrenderer,
   daysBetween: _daysBetween,
   field_encode: _field_encode,
-  field_decode: _field_decode
+  field_decode: _field_decode,
+  pageList:_pageList,
+  pageListScroll: _pageListScroll,
+  cleanSpelChar: _cleanSpelChar,
+  reachPageBottom: _reachPageBottom
 };

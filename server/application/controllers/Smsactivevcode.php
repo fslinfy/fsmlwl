@@ -69,14 +69,14 @@ if ($rows==0)
       {
 			  $code[$i] = chr(rand(48, 57));//数字
       }
-       $code="123456";
+     //  $code="123456";
       $_SESSION["VerifyCode"] = $code;
 
     
    	  try {   
 
       
-     /*  $templateId =106661;
+       $templateId =106661;
 	     $params =array();
        array_push($params,$code);
        array_push($params,2);
@@ -85,22 +85,19 @@ if ($rows==0)
        $a=json_decode($result, true);
         if ($a["result"]==0)
         {
-       
-             
             mysqli_query($link,'insert into logs (msg) values ("'.$phone."   vcode: ".$code.'")');
-
-             $this->json(['result' => "success",'vcode'=>$code]);   
+            $this->json(['result' => "success",'vcode'=>$code]);   
         }
         else
         {
          $this->json(['result' => "信息发送失败！"]);   
         }
-*/
-          // $this->json(['result' => "success",'vcode'=>$code]);   
-            $this->json(['result' => "信息发送失败!!!!！"]);   
+
+           $this->json(['result' => "success",'vcode'=>$code]);   
+          //  $this->json(['result' => "信息发送失败!!!!！"]);   
            
     } catch(\Exception $e) {
- $this->json(['result' => "信息发送失败！"]);   
+        $this->json(['result' => "信息发送失败！"]);   
     }
     }
          

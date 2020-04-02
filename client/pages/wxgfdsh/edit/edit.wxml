@@ -1,0 +1,86 @@
+<import src="../../template/temp_display_gfdmx.wxml" />
+<import src="../../template/temp_calendar.wxml" />
+<import src="../../template/temp_selectName.wxml" />
+<view class="container">
+  <view class="container-right" catchtap="edit" >
+    <!--    <scroll-view scroll-y="true" style="height: 100%;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">-->
+    <form bindsubmit="evaSubmit" report-submit='true'>
+      <view class="form_panel" style="height:195rpx;">
+        <view class="form_line_header">
+          <text>过车单号:</text>
+          <input type="text" disabled='true' style="margin-right:5rpx;" name="gfdh" value="{{gfd.gfdh}}"></input>
+          <view style="width:200rpx;color:red;text-align: right;" hidden="{{gfd.xjbz==0}}">
+            <text>司机现付</text>
+          </view>
+        </view>
+        <view class="form_line_header">
+          <text>过车仓库:</text>
+          <!--<input type="text" disabled='true' style="margin-right:5rpx;" name="ckmc" value="{{gfd.ckmc}}"></input>-->
+          <text class="textbox">{{gfd.ckmc}}</text>
+<view class="checkbox_icon checkbox_0_selected" bindtap="bindckmcSelect" style="width:60rpx;height:60rpx;margin-right:20rpx;" data-commodityindex="{{index}}"  hidden="{{act!=0}}">...</view>
+        </view>
+        <view class="form_line_header">
+          <text>开单日期:</text>
+          <input type="text" name="xsrq" disabled="true" value="{{gfd.kdrq}}"> </input>
+          <text>有效期:</text>
+          <input type="text" name="endrq" disabled="true" value="{{gfd.endrq}}" style="margin-right:5rpx;" bindtap="bindDateChange1"></input>
+        </view>
+      </view>
+      <view class="list-item" wx:for="{{gfdmx}}" style="height:auto;" data-obj="{{item}}">
+        <template is="temp_display_gfdmx" data="{{...item}}" />
+      </view>
+      <view class="form_panel_col" style="margin-left:0rpx;height:420rpx;">
+        <view class="list_header_text" >
+          <view class="item-row" style="height:40rpx;margin-top: -3rpx;font-size:34rpx; ">
+            <text style='text-align:left;'>合计数量：{{gfd.khsl}}</text>
+            <text>合计重量：{{gfd.khzl}}</text>
+          </view>
+        </view>
+        <view class="form_line_header " style="height:70rpx;margin: 10rpx 0rpx 0rpx 0rpx;">
+          <text>车牌</text>
+          <input type="text" name="cphm" value="{{gfd.cphm}}" disabled="{{act!=0}}" style="margin-right:0rpx;"></input>
+          <view class="checkbox_icon checkbox_0_selected" bindtap="bindcphmSelect" style="width:60rpx;height:60rpx;margin-right:20rpx;" data-commodityindex="{{index}}" hidden="{{act!=0}}">...</view>
+        </view>
+        <view class="form_line_header " style="height:70rpx;">
+          <text>司机</text>
+          <input type="text" name="sfr" disabled="{{act!=0}}" value="{{gfd.sfr}}" style="margin-right:0rpx;"></input>
+          <view class="checkbox_icon checkbox_0_selected" bindtap="bindsfrSelect" style="width:60rpx;height:60rpx;margin-right:20rpx;" data-commodityindex="{{index}}" hidden="{{act!=0}}">...</view>
+        </view>
+        <view class="form_line_header " style="flex:1;">
+          <text style="width:40rpx;">备  注</text>
+          <textarea value="{{gfd.cnote}}" placeholder="" hidden="{{!hiddenSelectWindow || !calendarHidden}}" auto-focus style="height:180rpx;margin: 5rpx 5rpx 5rpx 5rpx;  background-color: white;  " bindblur="textBlur" disabled="{{act==1}}" maxlength='254' name="cnote"
+          />
+        </view>
+      </view>
+      <view class="form_line_header" style="padding:10rpx;align: right;">
+        <button formType="submit" disabled='{{gfdmx.length==0}}' hidden="{{act!=0}}"  type="primary" style="width:45%;" >审核通过</button>
+        <button bindtap="bindcancel"  type="primary" style="width:45%;" >返回</button>
+
+      </view>
+
+         <!--<button open-type='share' id="bnt">分享</button>-->
+
+
+    </form>
+    <view class="form_line_header" style="margin-left:0rpx;align: right;" hidden="{{currentkhid==0}}">
+      <view class="delete_line">
+        <view class="form_line_header" bindtap="delete" style="width:60%;" wx:if="{{gfd.delbz==0&&gfd.ztbz<2}}" hidden="{{act>1}}">
+          <image src="../../../images/icon_delete.png" style="height:70rpx;width:70rpx;" />
+          <text>作废此提单</text>
+        </view>
+        <view class="form_line_header" wx:if="{{gfd.delbz>0}}">
+          <text style="color:red;">此提单已经作废</text>
+        </view>
+      </view>
+    </view>
+    <!--    </scroll-view>-->
+  </view>
+  <!-- get date  -->
+  <view class="shade" style="padding-left:20%;" hidden="{{datedata.calendarHidden}}">
+    <template is="temp_calendar" data="{{...datedata}}" />
+  </view>
+  <!-- get name   -->
+  <view class="shade" style="padding-left:20%;" hidden="{{options.hiddenSelectWindow}}">
+    <template is="temp_selectName" data="{{...options}}" />
+  </view>
+</view>

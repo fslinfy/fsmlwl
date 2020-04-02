@@ -1,12 +1,11 @@
-.form_panel_row_item {
-  flex:1;
+@import "../../../style/selectname.wxss";
+@import "../../../style/cpxsdedit.wxss";
+
+.list-item1 {
+  height: 50rpx;
   display: flex;
   flex-direction: row;
-  border: 1rpx solid rgb(217, 217, 217);
-}
-.form_panel_row {
-  flex:1;
-  display: flex;
-  flex-direction: row ;
- 
+  background: #fff;
+  margin: 0rpx 1rpx 3rpx 1rpx;
+  padding: 15rpx;
 }

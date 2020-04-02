@@ -1,15 +1,17 @@
 <view class="container">
-  <view class="list_header_text">
-  </view>
-  <view class="container-center" hidden="{{!userlogin}}">
-    <view class="container-right">
-      <scroll-view scroll-y="true" style="height: 100%;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
-
-        <view class="list-item" wx:for="{{menu[curIndex]}}" wx:key="" catchtap="edit" style="font-size: 42rpx;" data-obj="{{item}}">
-          {{item.Name}}
-        </view>
-      </scroll-view>
+  <view class="container-right">
+    <view class="list_header_text" style="font-size: 30rpx;height:50rpx;" >
     </view>
-  </view>
+    <view class="container-center" hidden="{{!userlogin}}">
+      <view class="container-right">
+        <scroll-view scroll-y="true" style="height: 100%;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
 
+          <view class="listitem" wx:for="{{menu[curIndex]}}" wx:key="" catchtap="edit" style="font-size: 42rpx;" data-obj="{{item}}">
+            {{item.Name}}
+          </view>
+        </scroll-view>
+      </view>
+    </view>
+
+  </view>
 </view>

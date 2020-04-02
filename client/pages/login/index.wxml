@@ -35,7 +35,7 @@
 
         <view class="form_line">
           <text>登录密码</text>
-          <input type="password" maxlength="20" name="password" value="8888"></input>
+          <input type="password" maxlength="20" name="password" value="{{password}}"></input>
         </view>
         <view class="form_line">
           <button formType="submit">登录</button>

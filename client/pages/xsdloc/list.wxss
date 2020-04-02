@@ -1,4 +1,39 @@
+
+page {
+  height: 100%;
+}
+ 
+.list {
+  height: 100%;
+  width: 100%;
+}
+ 
+.listitem {
+  line-height: 50rpx;
+  padding: 20rpx;
+  font-size: 32rpx;
+  background:  white;
+  border-bottom: 1rpx solid #eeeeee;
+}
+ 
+.list-end{
+    text-align: center;
+    font-size: 18rpx;
+    color: #b2b2b2;
+    margin: 15rpx 0 7.5rpx;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+ 
+.list-end .line {
+  width: 20%;
+  height: 1px;
+  background-color: #dddddd;
+  margin: 0 30rpx;
+}
+
 @import "../../utils/calendar.wxss";
-
+@import "../../style/selectname.wxss";
 @import "../../style/cpxsdedit.wxss";
-

@@ -42,7 +42,7 @@
       <view class="form_line">
         <text >产地:</text>
         <text class="textbox">{{item.cdmc}}</text>
-        <!-->
+        <!--
         <text>批号:</text>
         <text class="textbox"></text>-->
 
@@ -89,11 +89,14 @@
       送货车牌:
       <text class="textbox">{{cphm}}</text>
     </view>
+  </view>
+  <view class="item-row">
     <view class="item-col">
       送货司机:
       <text class="textbox">{{sfr}}</text>
     </view>
   </view>
+
   <view class="item-row">
     <view class="item-col">
       开单:
@@ -101,7 +104,7 @@
     </view>
     <view class="item-col">
       审核:
-      <text class="textbox">{{shr}}</text>
+      <text class="textbox">{{ghid}}</text>
     </view>
   </view>
   <view class="item-row" hidden="{{act==1}}">

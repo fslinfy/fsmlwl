@@ -74,12 +74,17 @@
 }
 
 
+
 .kcsl text {
   flex: 1;
   margin: 1rpx 5rpx 1rpx 2rpx;
   font-size: 36rpx;
   font-weight: 700;
   vertical-align: middle;
+}
+.text-kdsl{
+ color:  darkturquoise;
+
 }
 
 .post {

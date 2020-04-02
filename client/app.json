@@ -1,12 +1,37 @@
 {
+
   "pages": [
-    "pages/login/index",
-    "pages/index/index",
     
+   "pages/login/index",
+   "pages/index/index",  
+   "pages/cpckdloctest1/list",
+   "pages/test/index",
+
+"pages/xsdview/edit",
+
+    "pages/cpckdgl/edit",
+    
+    "pages/wxgfdgl/edit",
+    "pages/wxgfdsh/list",
+    "pages/wxgfdsh/edit/edit",
+    "pages/wxgfdloc/list",
+
+"pages/wxgfdview/edit",
+
+    "pages/wxghdgl/list",
+    "pages/wxghdgl/edit/edit",
+"pages/wxghdsh/list",
+"pages/wxghdsh/edit/edit",
+"pages/wxghdloc/list",
+
+"pages/wxghdview/edit",
+
+    "pages/usertype/list",
+    "pages/usertype/edit/edit",
+  
+
     "pages/menu/menu",
-    "pages/xsdview/edit",
     "pages/menu/menu1",
-     
     "pages/khusers/edit/edit",
     "pages/login/useractive/useractive",
     "pages/login/khactive/khactive",
@@ -17,6 +42,7 @@
     "pages/khusers/list",
     "pages/xsdsh/list",
     "pages/xsdmfh/list",
+
     "pages/xskd/list",
     "pages/xskd/edit/edit",
     "pages/xsdsh/edit/edit",
@@ -37,12 +63,14 @@
     "pages/cpckdcwsh/list",
     "pages/cpjkwz/list",
     "pages/cpjkwz/edit/edit",
-    
+    "pages/cpckwz/list",
+    "pages/cpckwz/edit/edit",
+   
+
+
     "pages/cpjcttloc/list",
     "pages/cpjcttloc/edit/edit",
-    
-
-    "pages/cpckdloc/list",
+     "pages/cpckdloc/list",
     "pages/logs/list"
   ],
   "window": {
@@ -57,8 +85,8 @@
       {
         "pagePath": "pages/menu/menu",
         "text": "首页",
-        "iconPath": "images/home.png",
-        "selectedIconPath": "images/node_on.png"
+        "iconPath": "images/icon_home.png",
+        "selectedIconPath": "images/icon_home_selected.png"
       },
       {
         "pagePath": "pages/menu/menu1",

@@ -3,29 +3,31 @@ var Api = require("../../utils/api.js");
 var callBackQuery = function (res, that) {
   //return;
   var obj = res.data.rows;
+  var datamsg ='没有单据待审核！ ';
+  //console.log(obj);
   obj.forEach(function (item, index) {
    // item['cnote'] = item.cnote.split('&~~').join('\n');
     item['cnote'] =Api.field_decode(item.cnote);
- //   item['sfr'] = Api.field_decode(item.sfr);
- //   item['cphm'] = Api.field_decode(item.cphm);
+    item['sfr'] = Api.field_decode(item.sfr);
+    item['cphm'] = Api.field_decode(item.cphm);
     var xsdmx = item.xsdmx;
-    
+    datamsg='';
     xsdmx.forEach(function (item2, index2) {
       item2.xssl = Api.slrenderer(item2.xssl);
       item2.xszl = Api.slrenderer(item2.xszl);
     })
-    item['xs[p9ui8u8tr76tugtuytfyt6jjct6f4y87dmx']=xsdmx;
+    item['xsdmx']=xsdmx;
   });
 
 
   that.setData({
-    lists: obj
+    lists: obj,datamsg:datamsg
   })
   wx.hideLoading();
 };
 Page({
   data: {
-    hidden: true
+    hidden: true,datamsg:''
   },
   edit: function (e) {
     if (!Api.checkTime()) return; 

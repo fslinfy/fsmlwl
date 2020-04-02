@@ -1,38 +1,32 @@
 var Api = require("../../utils/api.js");
 var fun_base64 = require('../../utils/base64.js')
 var utils = require('../../utils/util');
-
 var select = require("../../utils/selectName.js");
-
 var timestamp = Date.parse(new Date()) / 1000;
 //加一天的时间：  
 var n_to = 1000 * (timestamp - 24 * 60 * 60 * 7);
 var startdate = ((new Date(n_to)).toISOString()).substring(0, 10);
 var enddate = ((new Date()).toISOString()).substring(0, 10);
-var today=new Date();
-
-
-var year=today.getFullYear();
-var month = today.getMonth()+1;
-var day='';
-
-
-
+var today = new Date();
+var year = today.getFullYear();
+var month = today.getMonth() + 1;
+var day = '';
 var khid = 0;
-var callBackQuery = function (res, that) {
+var callBackQuery = function(res, that) {
   var obj = res.data.rows;
-  var sumsl=0;
-  var sumzl=0;
-  obj.forEach(function (item, index) {
-      item.jcsl = Api.slrenderer(item.jcsl);
-      item.jczl = Api.slrenderer(item.jczl);
-    sumsl = sumsl + item.jcsl;
-    sumzl = sumzl + item.jczl; 
+  var sumsl = 0;
+  var sumzl = 0;
+  obj.forEach(function(item, index) {
+    sumsl = sumsl + parseFloat(item.jcsl);
+    sumzl = sumzl + parseFloat(item.jczl);
+    item.jcsl = Api.slrenderer(parseFloat(item.jcsl));
+    item.jczl = Api.slrenderer(parseFloat(item.jczl));
   });
+  console.log(sumsl,sumzl);
   that.setData({
     lists: obj,
-    sumsl:sumsl,
-    sumzl:sumzl
+    sumsl: sumsl,
+    sumzl: sumzl.toFixed(3)
   })
   wx.hideLoading();
 };
@@ -41,39 +35,40 @@ Page({
     hidden: true,
     rq1: startdate,
     rq2: enddate,
-    year:year,
-    month:month,
-    day:day,
-    cpwz:0,
+    year: year,
+    month: month,
+    day: day,
+    cpwz: 0,
     hiddenBoolean: true,
-    options: { hiddenSelectWindow: true },
-    datedata: { calendarHidden: true }
+    options: {
+      hiddenSelectWindow: true
+    },
+    datedata: {
+      calendarHidden: true
+    }
   },
-  fetchData: function () {
+  fetchData: function() {
     var that = this;
     wx.showLoading({
       title: 'loading...',
     })
-    var wzbz='khwz';
-    if (that.data.cpwz)
-    {
+    var wzbz = 'khwz';
+    if (that.data.cpwz) {
       wzbz = 'cpwz';
     }
 
-    Api.queryData(this,
-      {
-        act: "cpjcttloc",
-        loc: wzbz,
-        khid:0,
-        year: that.data.year,
-        month: that.data.month,
-        day: that.data.day,
-        ckid: getApp().globalData.current_l_id
-      }, callBackQuery
-    );
+    Api.queryData(this, {
+      act: "cpjcttloc",
+      loc: wzbz,
+      khid: 0,
+      year: that.data.year,
+      month: that.data.month,
+      day: that.data.day,
+      ckid: getApp().globalData.current_l_id
+    }, callBackQuery);
   },
-  edit: function (e) {
-    
+  edit: function(e) {
+
     if (!Api.checkTime()) return;
     var that = this;
     if (that.data.cpwz) return;
@@ -84,33 +79,33 @@ Page({
       url: url
     })
   },
-  onShow: function () {
-    Api.checkTime(); 
+  onShow: function() {
+    Api.checkTime();
     var vm = this;
     vm.fetchData();
   },
-  hiddenBtn: function (e) {
+  hiddenBtn: function(e) {
     this.setData({
       hiddenBoolean: true
     })
   },
-  selectcpwzBtn: function (e) {
+  selectcpwzBtn: function(e) {
     this.setData({
-      cpwz:!this.data.cpwz
+      cpwz: !this.data.cpwz
     })
   },
-  evaSubmit: function (e) {
-   if(! Api.checkTime()) return; 
-    if (e.detail.value.year==''){
+  evaSubmit: function(e) {
+    if (!Api.checkTime()) return;
+    if (e.detail.value.year == '') {
       wx.showModal({
         showCancel: false,
         title: '注意',
         content: "请输入统计年度！",
-        success: function (res) {
-            return;
+        success: function(res) {
+          return;
         }
       })
-      return ;
+      return;
     }
 
     Api.saveFormId(e.detail.formId, wx.getStorageSync('current_openid'));
@@ -118,31 +113,67 @@ Page({
       year: e.detail.value.year,
       day: e.detail.value.day
     })
-    
+
 
     this.fetchData();
   },
-
-
-  bindmonthSelect: function (e) {
+  bindmonthSelect: function(e) {
     var that = this;
-    var list = [{ 'Id': '', Name: '' }, { 'Id': '01', Name: '01' }, { 'Id': '02', Name: '02' }, { 'Id': '03', Name: '03' }
-      , { 'Id': '04', Name: '04' }, { 'Id': '05', Name: '05' }, { 'Id': '06', Name: '06' }, { 'Id': '07', Name: '07' }, { 'Id': '08', Name: '08' }, { 'Id': '09', Name: '09' }, { 'Id': '10', Name: '10' }, { 'Id': '11', Name: '11' }, { 'Id': '12', Name: '12' }] ;
+    var list = [{
+      'Id': '',
+      Name: ''
+    }, {
+      'Id': '01',
+      Name: '01'
+    }, {
+      'Id': '02',
+      Name: '02'
+    }, {
+      'Id': '03',
+      Name: '03'
+    }, {
+      'Id': '04',
+      Name: '04'
+    }, {
+      'Id': '05',
+      Name: '05'
+    }, {
+      'Id': '06',
+      Name: '06'
+    }, {
+      'Id': '07',
+      Name: '07'
+    }, {
+      'Id': '08',
+      Name: '08'
+    }, {
+      'Id': '09',
+      Name: '09'
+    }, {
+      'Id': '10',
+      Name: '10'
+    }, {
+      'Id': '11',
+      Name: '11'
+    }, {
+      'Id': '12',
+      Name: '12'
+    }];
     //var index = e.currentTarget.dataset.index;
     var obj = {};
     obj["selectTitle"] = "选择月份";
     obj["nameList"] = list;
     that.setData({
       selectType: "month",
-      
+
     });
     select.showSelectWindow(that, obj, false);
   },
-  selectCancelBtn: function (e) {
+  selectCancelBtn: function(e) {
     select.hiddenSelectWindow(this);
 
   },
-  selectBtn: function (e) {
+  selectBtn: function(e) {
     var that = this;
     var id = e.currentTarget.dataset.id;
     var index = e.currentTarget.dataset.index;
@@ -151,16 +182,11 @@ Page({
     var selecttype = that.data.selectType;
     var obj = that.data.obj;
     that.setData({
-      
+
       month: id
 
     });
     select.hiddenSelectWindow(that);
-    
+
   }
-
-
-
 })
-
-

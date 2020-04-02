@@ -7,15 +7,16 @@ var callBackQuery = function (res, that) {
   var sumsl=0;
   var sumzl=0;
   obj.forEach(function (item, index) {
+    sumsl = sumsl + Number(item.jcsl);
+    sumzl = sumzl + Number(item.jczl); 
       item.jcsl = Api.slrenderer(item.jcsl);
       item.jczl = Api.slrenderer(item.jczl);
-    sumsl = sumsl + item.jcsl;
-    sumzl = sumzl + item.jczl; 
+    
   });
   that.setData({
     lists: obj,
     sumsl:sumsl,
-    sumzl:sumzl
+    sumzl:sumzl.toFixed(3)
   })
   wx.hideLoading();
 };

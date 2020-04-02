@@ -1,12 +1,6 @@
 var Api = require("../../utils/api.js");
 var fun_base64 = require('../../utils/base64.js')
 var utils = require('../../utils/util');
-var calendar = require("../../utils/calendar.js");
-var select = require("../../utils/selectName.js");
-
-
-
-
 
 var timestamp = Date.parse(new Date()) / 1000;
 //加一天的时间：  
@@ -16,11 +10,12 @@ var enddate = ((new Date()).toISOString()).substring(0, 10);
 var khid = 0;
 var callBackQuery = function (res, that) {
   var obj = res.data.rows;
+  var datamsg ='  没有单据待审核！ ';
   obj.forEach(function (item, index) {
     //item['cnote'] = item.cnote.split('&~~').join('\n');
     item['cnote'] = Api.field_decode(item.cnote);
     var jkdmx = item.jkdmx;
-
+    datamsg='';
     jkdmx.forEach(function (item2, index2) {
       item2.jcsl = Api.slrenderer(item2.jcsl);
       item2.jczl = Api.slrenderer(item2.jczl);
@@ -29,7 +24,7 @@ var callBackQuery = function (res, that) {
   });
 
   that.setData({
-    lists: obj
+    lists: obj,datamsg:datamsg
   })
   wx.hideLoading();
 };

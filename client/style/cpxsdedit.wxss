@@ -224,8 +224,8 @@ button {
 
 .list-item-select {
   margin-top: 0rpx;
-  padding: 20rpx 0rpx 0rpx 10rpx;
-  height: 70rpx;
+  padding: 20rpx 0rpx 20rpx 10rpx;
+
   width: 99%;
   border: silver;
   display: flex;
@@ -236,8 +236,8 @@ button {
 
 .list-item-select_ok {
   margin-top: 0rpx;
-  padding: 20rpx 0rpx 0rpx 10rpx;
-  height: 70rpx;
+  padding: 20rpx 0rpx 20rpx 10rpx;
+ 
   width: 99%;
   border: silver;
   display: flex;

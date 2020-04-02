@@ -1,5 +1,7 @@
 //index.js
 //获取应用实例
+var that;
+var khid=0;
 const app = getApp()
 
 Page({
@@ -14,7 +16,7 @@ Page({
     userid:0 ,
     button_text: "发验证码到手机",
     smsphone: '',
-    wxlogin:1,
+    wxlogin:0,
     sendstatus: 0,
     username: '',
     canIUse: wx.canIUse('button.open-type.getUserInfo')
@@ -31,8 +33,8 @@ Page({
     });
   },
   sendsms: function (e) {
-    var that = this;
-    var khid = e.detail.value.khid;
+     that = this;
+     khid = e.detail.value.khid;
     var smsphone = e.detail.value.smsphone;
 
     //that.setData({
@@ -51,6 +53,10 @@ Page({
       },
       success: function (res) {
         if (res.data.result == 'success') {
+
+          getApp().globalData.current_khid = khid;
+          wx.setStorageSync('current_khid', khid);
+
           that.setData({
             sendstatus: 1,
             second: 120,
@@ -75,8 +81,8 @@ Page({
     })
   },
   syslogin: function (e) {
-    var that = this;
-    var khid = this.data.khid;
+   that = this;
+   khid = this.data.khid;
     var smsphone = this.data.smsphone;
     var vcode = e.detail.value.vcode;
 
@@ -110,7 +116,7 @@ Page({
     })
   },                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
   countdown: function () {
-    var that = this;
+     that = this;
     var second = that.data.second
     if (second < 1) {
       that.setData({

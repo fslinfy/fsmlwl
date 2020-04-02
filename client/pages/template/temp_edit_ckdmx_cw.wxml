@@ -1,0 +1,23 @@
+<template name="temp_edit_ckdmx_cw">
+  <view style='pading:50rpx; background:  powderblue;'>
+    <view class="form_line"  style="background:powderblue;" >
+      <view class="checkbox_icon checkbox_0_selected" bindtap="binddeletecwSelect" style="width:60rpx;height:60rpx;margin-right:20rpx;" data-cwid="{{cwid}}" data-msg="{{cw}}" data-mxid="{{mxid}}">-</view>
+<text style='margin-top:5rpx;'>仓位</text>
+      <text class="textbox" >{{cw}}</text>
+      <text style='margin-top:5rpx;'>仓位说明</text>
+      <text class="textbox" style="text-align:center;">{{sm}}</text>
+    </view>
+    <view class="form_line" style="background:powderblue;" >
+      <text style='margin-top:5rpx;'>商品批号</text>
+      <text class="textbox" >{{cpph}}</text>
+      <text style='margin-top:5rpx;'>进仓日期</text>
+      <text class="textbox" style="text-align:center;">{{czrq}}</text>
+    </view>
+    <view class="form_line" style="height:66rpx;background:powderblue;">
+      <text>出仓数量:</text>
+      <text class="textbox" style="text-align:center;">{{sl}}</text>
+      <text>出仓重量:</text>
+      <text class="textbox" style="text-align:center;">{{zl}}</text>
+    </view>
+  </view>
+</template>

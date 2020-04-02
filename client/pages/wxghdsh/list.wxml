@@ -1,0 +1,24 @@
+<import src="../template/temp_loc_ghdmx.wxml" />
+<import src="../template/temp_calendar.wxml" />
+<view class="list_header"></view>
+<scroll-view class="list" style='' scroll-y="true" bindscrolltolower="reachPageBottom" bindscrolltoupper="reachPageTop" bindscroll="onListScroll" enable-back-to-top="true" upper-threshold='100' lower-threshold="100" scroll-top="{{scrollTo}}">
+  <!-- 循环分页 -->
+  <view wx:for="{{list}}" wx:for-item="subList" wx:for-index="page" id="listpage-{{page}}" wx:key="listpage">
+    <!-- 判断页面状态 -->
+    
+    <block wx:if="{{page - currentPage >= -1 && page - currentPage <= 1}}">
+      <template is="temp_loc_ghdmx" wx:for="{{subList}}" data="{{...item}}" />
+    </block>
+    <view wx:else style='height:{{pageFrame[page].height}}px;'></view>
+
+  </view>
+
+  <view   hidden="{{list[0].length>0}}" style="padding:30rpx;height:auto;text-align:center;color:red; background-color:white; " >
+   {{datamsg}}   
+  </view>
+</scroll-view>
+
+<!-- get date  -->
+<view class="shade" style="padding-left:20%;" hidden="{{datedata.calendarHidden}}">
+  <template is="temp_calendar" data="{{...datedata}}" />
+</view>

@@ -1,0 +1,30 @@
+<template name="temp_display_xsdmx_ck">
+  <view class="form_line">
+    <text>商品:</text>
+    <text class="textbox">{{cpmc}}</text>
+  </view>
+  <view class="form_line">
+    <text>产地:</text>
+    <text class="textbox">{{cdmc}}</text>
+    <text>批号:</text>
+    <text class="textbox">{{cpph}}</text>
+  </view>
+  <view class="form_line">
+    <text>规格:</text>
+    <text class="textbox">{{bzmc}}</text>
+  </view>
+  <view class="form_line">
+    <text>开单数量:</text>
+    <text class="textbox" style="text-align:center; ">{{xssl}}</text>
+    <text>{{jldw}}</text>
+    <text style="margin-left:40rpx;text-align:right; "> 开单重量(吨):</text>
+    <text class="textbox" style="text-align:center; ">{{xszl}}</text>
+  </view>
+  <view class="form_line">
+    <text>未出数量:</text>
+    <text class="textbox" style="text-align:center; ">{{mfhsl}}</text>
+    <text>{{jldw}}</text>
+    <text style="margin-left:40rpx;text-align:right; "> 未出重量(吨):</text>
+    <text class="textbox" style="text-align:center; ">{{mfhzl}}</text>
+  </view>
+</template>
